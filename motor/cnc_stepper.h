@@ -38,32 +38,50 @@ public:
 		void setEndstop(unsigned int end_pin, bool end_inv){
 			endstop_pin = end_pin;
 			endstop_inverted = end_inv;
+
+			pinMode(endstop_pin, OUTPUT);
 		}
 	/**************** Settings end ****************/
 
 	/**************** Moving start ****************/
 		void step(float steps){
-			// TODO: inverted motor?
+			disable();
+
+			if(inverted)
+				steps = -steps;
+
 			motor.step(steps);
+			now_pos += steps;
 		}
 
-		void move_to(float pos){
-			// TODO: inverted motor?
-			motor.step(pos - now_pos);
-		}
+		// void move_to(float pos){
+		// 	float steps = pos - now_pos;
+
+		// 	if(inverted)
+		// 		steps = -steps;
+
+		// 	motor.step(steps);
+		// }
 
 		void homing(){
 			// TODO
+			now_pos = 0;
 		}
+
+		float get_pos() { return now_pos; }
+
+		void set_pos(float new_pos) { now_pos = new_pos; }
 	/**************** Moving end ****************/
 
 	/**************** Enable start ****************/
 		void enable(){
-			// TODO
+			enabled = true;
+			digitalWrite(enable_pin, HIGH);
 		}
 
 		void disable(){
-			// TODO
+			enabled = false;
+			digitalWrite(enable_pin, LOW);
 		}
 
 		bool get_enable() { return enabled; }
@@ -71,10 +89,14 @@ public:
 
 private:
 	Stepper			motor;
+
 	bool			enabled;
+
 	bool			inverted;
 	bool			endstop_inverted;
+
 	unsigned int	enable_pin;
 	unsigned int	endstop_pin;
+
 	float			now_pos;
 };

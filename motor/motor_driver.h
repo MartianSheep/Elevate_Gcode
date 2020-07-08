@@ -20,14 +20,16 @@
 						X_Stepper_Dir_Pin,
 						X_Stepper_Enable_Pin);
 	if(X_Stepper_Invert) X_Stepper.setInvert();
-	X_Stepper.setEndstop(X_Endstop_Pin, X_Endstop_Invert);
+	// X_Stepper.setEndstop(X_Endstop_Pin, X_Endstop_Invert);
+	// While "pinMode" is included this is moved to the setup in main.ino
 
 	CNC_Stepper Y_Stepper(Y_Steps_Per_Revolution,
 						Y_Stepper_Step_Pin,
 						Y_Stepper_Dir_Pin,
 						Y_Stepper_Enable_Pin);
 	if(Y_Stepper_Invert) Y_Stepper.setInvert();
-	Y_Stepper.setEndstop(Y_Endstop_Pin, Y_Endstop_Invert);
+	// Y_Stepper.setEndstop(Y_Endstop_Pin, Y_Endstop_Invert);
+	// While "pinMode" is included this is moved to the setup in main.ino
 
 	Servo Pen_Servo;
 /**************** Macro Definitions of Motors end ****************/
@@ -46,6 +48,8 @@
 /**************** Stepper Moving start ****************/
 	void Move_Stepper_Linear(float X, float Y){
 		// TODO
+		float now_X = X_Stepper.get_pos();
+		float now_Y = Y_Stepper.get_pos();
 	}
 
 	void Move_Stepper_Circular_R(bool dir, float X, float Y, float R){
@@ -59,29 +63,17 @@
 
 /**************** Stepper Enable start ****************/
 	void Enable_Stepper_X(bool enable){
-		if(enable){
-			X_Stepper.enable();
-		}
-		else{
-			X_Stepper.disable();
-		}
+		if(enable)	X_Stepper.enable();
+		else 		X_Stepper.disable();
 	}
 
 	void Enable_Stepper_Y(bool enable){
-		if(enable){
-			Y_Stepper.enable();
-		}
-		else{
-			Y_Stepper.disable();
-		}
+		if(enable)	Y_Stepper.enable();
+		else		Y_Stepper.disable();
 	}
 
-	bool Get_Enable_X() {
-		return X_Stepper.get_enable();
-	}
-	bool Get_Enable_Y() {
-		return Y_Stepper.get_enable();
-	}
+	bool Get_Enable_X() { return X_Stepper.get_enable(); }
+	bool Get_Enable_Y() { return Y_Stepper.get_enable(); }
 /**************** Stepper Enable end ****************/
 
 /**************** Homing start ****************/

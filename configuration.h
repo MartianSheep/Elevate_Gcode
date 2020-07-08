@@ -50,7 +50,6 @@
 	#define Stepper_Smallest_Step	1
 	#define Step_Delay_Time			0
 	#define	Line_Delay_Time			50
-	#define Pen_Delay_Time			50
 /**************** Stepper Motor Advanced end ****************/
 
 /**************** Endstops start ****************/
@@ -74,6 +73,8 @@
 
 	#define Servo_Pen_Up_Angle		90
 	#define Servo_Pen_Down_Angle	45
+
+	#define Pen_Delay_Time			100
 /**************** Servo Motor end ****************/
 
 /**************** Bed Settings start ****************/
