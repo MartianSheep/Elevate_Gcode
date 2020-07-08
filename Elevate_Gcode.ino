@@ -11,8 +11,8 @@
 #include <Stepper.h>
 
 #include "configuration.h"
-#include "gcode_headers.h"
-#include "motor_driver.h"
+#include "gcode/gcode_headers.h"
+#include "motor/motor_driver.h"
 
 void setup() {
 	Serial.begin(Baudrate);

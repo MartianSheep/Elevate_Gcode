@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "configuration.h"
+#include "../configuration.h"
 
 #include <Servo.h>
 #include "cnc_stepper.h"
