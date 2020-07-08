@@ -6,3 +6,14 @@
 	Time			[ 2020 Jul.-present, NTUEE, NTU, Taipei, Taiwan ]
 	Copyright		[ Copyleft(c) 2020-present EESA, NTUEE, NTU, Taiwan]
 **************************************************************************/
+
+#pragma once
+
+#include "gcode_headers.h"
+// #include <vector.h>
+
+/**************** Parser start ****************/
+	std::vector<String> Gcode_Parser(String cmd){
+		// TODO
+	}
+/**************** Parser end ****************/

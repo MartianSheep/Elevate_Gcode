@@ -6,3 +6,11 @@
 	Time			[ 2020 Jul.-present, NTUEE, NTU, Taipei, Taiwan ]
 	Copyright		[ Copyleft(c) 2020-present EESA, NTUEE, NTU, Taiwan]
 **************************************************************************/
+
+#pragma once
+
+/**************** M-code Translator start ****************/
+	void M_Code_Translator(int num, std::vector<String> v){
+		// TODO
+	}
+/**************** M-code Translator end ****************/

@@ -23,8 +23,14 @@ void setup() {
 
 	X_Stepper.setSpeed(X_Stepper_Speed);
 	Y_Stepper.setSpeed(Y_Stepper_Speed);
+
+	pinMode(X_Stepper_Enable_Pin, OUTPUT);
+	pinMode(Y_Stepper_Enable_Pin, OUTPUT);
 }
 
+String cmd = "";
+
 void loop() {
+	cmd = Serial.readStringUntil('\n');
 	// TODO
 }

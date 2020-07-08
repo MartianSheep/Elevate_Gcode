@@ -30,6 +30,13 @@
 	#define Y_Stepper_Speed			50
 /**************** Stepper Motor end ****************/
 
+/**************** Stepper Motor Advanced start ****************/
+	#define StepperSmallestStep		1
+	#define StepDelayTime			0
+	#define	LineDelayTime			50
+	#define PenDelayTime			50
+/**************** Stepper Motor Advanced end ****************/
+
 /**************** Endstops start ****************/
 	#define X_Endstop				10
 	#define Y_Endstop				11

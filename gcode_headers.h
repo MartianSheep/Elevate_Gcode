@@ -12,3 +12,9 @@
 #include "gcode_parser.h"
 #include "gcode_gheader.h"
 #include "gcode_mheader.h"
+
+/**************** Seperator start ****************/
+	void Seperator(std::vector<String> cmd){
+		// TODO
+	}
+/**************** Seperator end ****************/
