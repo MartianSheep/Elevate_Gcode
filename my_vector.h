@@ -1,19 +1,10 @@
 /**************************************************************************
-	FileName		[ gcode_parser.h ]
+	FileName		[ my_vector.h ]
 	PackageName		[ Elevate_Gcode ]
-	Function		[ Parse the input to Gcode arrays ]
+	Function		[ A Simple Implement of stl::vector ]
 	Author			[ Teaching Group, Elevate, NTUEE ]
 	Time			[ 2020 Jul.-present, NTUEE, NTU, Taipei, Taiwan ]
 	Copyright		[ Copyleft(c) 2020-present NTUEE, NTU, Taiwan ]
 **************************************************************************/
 
 #pragma once
-
-#include "gcode_headers.h"
-#include "my_vector.h"
-
-/**************** Parser start ****************/
-	vector<String> Gcode_Parser(String cmd){
-		// TODO
-	}
-/**************** Parser end ****************/
