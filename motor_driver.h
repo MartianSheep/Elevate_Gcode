@@ -15,12 +15,19 @@
 #include "cnc_stepper.h"
 
 /**************** Macro Definitions of Motors start ****************/
-	CNC_Stepper X_Stepper(X_StepsPerRevolution,
-		X_Stepper_Step_Pin, X_Stepper_Dir_Pin, X_Stepper_Enable_Pin);
+	CNC_Stepper X_Stepper(X_Steps_Per_Revolution,
+						X_Stepper_Step_Pin,
+						X_Stepper_Dir_Pin,
+						X_Stepper_Enable_Pin);
 	if(X_Stepper_Invert) X_Stepper.setInvert();
-	CNC_Stepper Y_Stepper(Y_StepsPerRevolution,
-		Y_Stepper_Step_Pin, Y_Stepper_Dir_Pin, Y_Stepper_Enable_Pin);
+	X_Stepper.setEndstop(X_Endstop_Pin, X_Endstop_Invert);
+
+	CNC_Stepper Y_Stepper(Y_Steps_Per_Revolution,
+						Y_Stepper_Step_Pin,
+						Y_Stepper_Dir_Pin,
+						Y_Stepper_Enable_Pin);
 	if(Y_Stepper_Invert) Y_Stepper.setInvert();
+	Y_Stepper.setEndstop(Y_Endstop_Pin, Y_Endstop_Invert);
 
 	Servo Pen_Servo;
 /**************** Macro Definitions of Motors end ****************/

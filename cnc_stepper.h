@@ -15,7 +15,9 @@ class CNC_Stepper
 {
 public:
 	CNC_Stepper(unsigned int steps_per_round,
-		unsigned int step_pin, unsigned int dir_pin, unsigned int ena_pin){
+				unsigned int step_pin,
+				unsigned int dir_pin,
+				unsigned int ena_pin){
 		// TODO: inverted motor?
 		motor = Stepper(steps_per_round, step_pin, dir_pin);
 		enable_pin = ena_pin;
@@ -33,8 +35,9 @@ public:
 
 		void setInvert() { inverted = true; }
 
-		void homing(){
-			// TODO
+		void setEndstop(unsigned int end_pin, bool end_inv){
+			endstop_pin = end_pin;
+			endstop_inverted = end_inv;
 		}
 	/**************** Settings end ****************/
 
@@ -47,6 +50,10 @@ public:
 		void move_to(float pos){
 			// TODO: inverted motor?
 			motor.step(pos - now_pos);
+		}
+
+		void homing(){
+			// TODO
 		}
 	/**************** Moving end ****************/
 
@@ -66,6 +73,8 @@ private:
 	Stepper			motor;
 	bool			enabled;
 	bool			inverted;
+	bool			endstop_inverted;
 	unsigned int	enable_pin;
+	unsigned int	endstop_pin;
 	float			now_pos;
 };

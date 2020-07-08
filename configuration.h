@@ -40,7 +40,7 @@
 	// #define X_Stepper_Speed_Slow	25
 	// #define X_Stepper_Speed_Fast	50
 	// #define Y_Stepper_Speed_Slow	25
-	// #define	Y_Stepper_Speed_Fast	50
+	// #defineY_Stepper_Speed_Fast	50
 
 	#define X_Stepper_Invert		false
 	#define Y_Stepper_Invert		false
@@ -54,15 +54,19 @@
 /**************** Stepper Motor Advanced end ****************/
 
 /**************** Endstops start ****************/
-	#define X_Min_Endstop_Pin		10
-	#define X_Min_Endstop_Invert	false
-	#define X_Max_Endstop_Pin
-	#define X_Max_Endstop_Invert	false
+	#define X_Endstop_Pin			10
+	#define X_Endstop_Invert		false
+	// #define X_Min_Endstop_Pin		10
+	// #define X_Min_Endstop_Invert	false
+	// #define X_Max_Endstop_Pin
+	// #define X_Max_Endstop_Invert	false
 
-	#define Y_Min_Endstop_Pin		11
-	#define Y_Min_Endstop_Invert	false
-	#define Y_Max_Endstop_Pin
-	#define Y_Max_Endstop_Invert	false
+	#define Y_Endstop_Pin			10
+	#define Y_Endstop_Invert		false
+	// #define Y_Min_Endstop_Pin		11
+	// #define Y_Min_Endstop_Invert	false
+	// #define Y_Max_Endstop_Pin
+	// #define Y_Max_Endstop_Invert	false
 /**************** Endstops end ****************/
 
 /**************** Servo Motor start ****************/
