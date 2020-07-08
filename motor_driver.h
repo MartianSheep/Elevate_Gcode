@@ -15,8 +15,12 @@
 #include "cnc_stepper.h"
 
 /**************** Macro Definitions of Motors start ****************/
-	Stepper X_Stepper(X_StepsPerRevolution, X_Stepper_Step_Pin, X_Stepper_Dir_Pin);
-	Stepper Y_Stepper(Y_StepsPerRevolution, Y_Stepper_Step_Pin, Y_Stepper_Dir_Pin);
+	CNC_Stepper X_Stepper(X_StepsPerRevolution,
+		X_Stepper_Step_Pin, X_Stepper_Dir_Pin, X_Stepper_Enable_Pin);
+	if(X_Stepper_Invert) X_Stepper.setInvert();
+	CNC_Stepper Y_Stepper(Y_StepsPerRevolution,
+		Y_Stepper_Step_Pin, Y_Stepper_Dir_Pin, Y_Stepper_Enable_Pin);
+	if(Y_Stepper_Invert) Y_Stepper.setInvert();
 
 	Servo Pen_Servo;
 /**************** Macro Definitions of Motors end ****************/
@@ -47,40 +51,40 @@
 /**************** Stepper Moving end ****************/
 
 /**************** Stepper Enable start ****************/
-	bool X_Enabled = false;
-	bool Y_Enabled = false;
-
 	void Enable_Stepper_X(bool enable){
 		if(enable){
-			X_Enabled = true;
-			digitalWrite(X_Stepper_Enable_Pin, HIGH);
+			X_Stepper.enable();
 		}
 		else{
-			X_Enabled = false;
-			digitalWrite(X_Stepper_Enable_Pin, LOW);
+			X_Stepper.disable();
 		}
 	}
 
 	void Enable_Stepper_Y(bool enable){
 		if(enable){
-			Y_Enabled = true;
-			digitalWrite(Y_Stepper_Enable_Pin, HIGH);
+			Y_Stepper.enable();
 		}
 		else{
-			Y_Enabled = false;
-			digitalWrite(Y_Stepper_Enable_Pin, LOW);
+			Y_Stepper.disable();
 		}
 	}
 
-	bool Get_Enable_X() { return X_Enabled; }
-	bool Get_Enable_Y() { return Y_Enabled; }
+	bool Get_Enable_X() {
+		return X_Stepper.get_enable();
+	}
+	bool Get_Enable_Y() {
+		return Y_Stepper.get_enable();
+	}
 /**************** Stepper Enable end ****************/
 
 /**************** Homing start ****************/
+	// TODO
 /**************** Homing end ****************/
 
 /**************** Coordinate start ****************/
+	// TODO
 /**************** Coordinate end ****************/
 
 /**************** Kill / Halt start ****************/
+	// TODO
 /**************** Kill / Halt end ****************/
