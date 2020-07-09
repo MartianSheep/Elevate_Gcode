@@ -36,6 +36,7 @@ public:
 		void setInvert() { inverted = true; }
 
 		void setEndstop(unsigned int end_pin, bool end_inv){
+			// this function can only be called in setup() in main.ino
 			endstop_pin = end_pin;
 			endstop_inverted = end_inv;
 
@@ -44,7 +45,7 @@ public:
 	/**************** Settings end ****************/
 
 	/**************** Moving start ****************/
-		void step(float steps){
+		void step(float steps){ // moving the motor by giving steps
 			disable();
 
 			if(inverted)
@@ -54,32 +55,27 @@ public:
 			now_pos += steps;
 		}
 
-		// void move_to(float pos){
-		// 	float steps = pos - now_pos;
-
-		// 	if(inverted)
-		// 		steps = -steps;
-
-		// 	motor.step(steps);
-		// }
-
 		void homing(){
 			// TODO
+			// keep going on one single direction until hit endstop
+			// and set that position as 0
 			now_pos = 0;
 		}
 
 		float get_pos() { return now_pos; }
 
-		void set_pos(float new_pos) { now_pos = new_pos; }
+		void set_pos(float new_pos) { // force to set now_pos
+			now_pos = new_pos;
+		}
 	/**************** Moving end ****************/
 
 	/**************** Enable start ****************/
-		void enable(){
+		void enable(){ // enable the motor for manual control
 			enabled = true;
 			digitalWrite(enable_pin, HIGH);
 		}
 
-		void disable(){
+		void disable(){ // machine overtaking the control
 			enabled = false;
 			digitalWrite(enable_pin, LOW);
 		}
@@ -91,12 +87,25 @@ private:
 	Stepper			motor;
 
 	bool			enabled;
+	// enable means that if human can turn the motor by hand
+	// motor should be disabled during machine process
+	// and enable by enable()
+	// not sure if we can do enable() after a process is done
+	// so that the motor won't keep making noise while halt
 
 	bool			inverted;
+	// if the motor's direction is inverted
 	bool			endstop_inverted;
+	// if the endstop's output is inverted
+	// would like to set to 0 if homing is not done
+	// and set 1 if the machine hits the endstop
+	// if endstop inverted, 1 for not done 0 for hit
 
 	unsigned int	enable_pin;
 	unsigned int	endstop_pin;
 
 	float			now_pos;
+	// the unit of now_pos should be steps
+	// using float to enable microsteps
+	// while A4988 supports it
 };
