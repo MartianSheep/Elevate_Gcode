@@ -12,8 +12,61 @@
 #include "gcode_headers.h"
 #include "my_vector.h"
 
+
 /**************** Parser start ****************/
 	vector<String> Gcode_Parser(String cmd){
-		// TODO
+		vector<String> parsed_data;
+		
+		int currentIndex = 0;
+		bool isalpha = false;
+		bool isF = false;
+		String value;
+		
+		while( currentIndex < cmd.length()){
+			char currentChar = cmd[currentIndex++];
+			
+			if (currentChar == 'F'){ // case F
+				parsed_data.push_back(value); // push current value in vector
+				//value = currentChar;
+				isF = true; // mark appear of F
+			}
+			else if (currentChar == '.'){// add decimal point
+				
+				value += currentChar;
+				continue;
+				
+			}
+			else if (currentChar == ' '){ //skip blankspace
+				continue;
+			}
+			else if (!currentChar.isdigit() && !isalpha){ //non-digit & first alpha(like G)
+				
+				isalpha = true;
+				value += currentChar;
+				
+				
+			}else if (!currentChar.isdigit() && isalpha){// non-digit & other alpha(like X,Y)
+				if (!isF){
+					parsed_data.push_back(value); // push non F value to vector 
+					value = currentChar // renew the value
+				}else{
+					value = currentChar; // renew the value
+					isF = false; 
+				}
+				
+				
+			}
+			else{
+				
+				value += currentChar; // add digit to value
+				
+			}	
+		}
+		if (!isF){ //push last non F value to vector
+				parsed_data.push_back(value);
+			}
+		return parsed_data;
+		
+		
 	}
 /**************** Parser end ****************/
