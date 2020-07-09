@@ -44,17 +44,21 @@ Gcode Firmware for the NTUEE Elevate CNC Mini Drawing Machine Project
 	* Caution: M112 / M410 interupt功能
 		
 ### gcode_parser.h
-	* https://github.com/maniacbug/StandardCplusplus/blob/master/README.md
-	* 上面的可以讓你arduino用stl
-	* String in -> std::vector<String> out
-	* std::vector<String> Function(String in)
+	* String in -> vector<String> out
+	* vector<String> Function(String in)
 	* 記得把G0 X30 Y30 F50的F暫時吃掉
+	* 不用std了
+	* 自己刻vector
+	* 記得加print function幫忙debug
 	
 ### gcode_headers.h
-	* std::vector in -> Move_Stepper/Move_Pen
+	* vector in -> Move_Stepper/Move_Pen
 	* void seperator(std::vector<String> v); // 純粹靠v[0]分成g和m
 	* output g/m後面那串數字和v[1:]
 	* gcode_gheader.h
 		* void g_code_translator(int num, std::vector<String> v);
 	* gcode_mheader.h
 		* void m_code_translator(int num, std::vector<String> v)
+
+米納桑甘巴爹
+![](backend_devs.jpg)
