@@ -14,7 +14,22 @@
 #include "gcode_mheader.h"
 
 /**************** Seperator start ****************/
-	void Seperator(std::vector<String> cmd){
-		// TODO
+	void Seperator(vector<String> cmd){
+		
+		String gcode_head = cmd[0];
+		char gcode_type = gcode_head.charAt(0);
+		int gcode_index = gcode_head.substring(1,gcode_head.length()-1).toInt()
+		
+		vector<String> params;
+		for (i=1;i<cmd.size();i++){
+			params.push_back(cmd[i]);
+		}
+		
+		switch (gcode_type){
+			case 'G':
+				g_code_translator(gcode_index, params);
+			case 'M':
+				m_code_translator(gcode_index, params);
+		} 
 	}
 /**************** Seperator end ****************/
