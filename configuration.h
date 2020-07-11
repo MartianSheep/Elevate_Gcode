@@ -44,16 +44,9 @@
 	#define X_Stepper_Speed			50
 	#define Y_Stepper_Speed			50
 
-	// #define X_Stepper_Mili_Per_Sec	50
-	// #define Y_Stepper_Mili_Per_Sec	50
-
-	// #define X_Feedrate				50
-	// #define Y_Feedrate				50
-
-	// #define X_Stepper_Speed_Slow	25
-	// #define X_Stepper_Speed_Fast	50
-	// #define Y_Stepper_Speed_Slow	25
-	// #defineY_Stepper_Speed_Fast	50
+	// consider feedrate unit
+	// #define X_Stepper_Mili_Per_Min	50
+	// #define Y_Stepper_Mili_Per_Min	50
 
 	#define X_Stepper_Invert		false
 	#define Y_Stepper_Invert		false
@@ -101,6 +94,9 @@
 /**************** Endstops start ****************/
 	#define X_Endstop_Pin			10
 	#define X_Endstop_Invert		false
+	// endstop_invert: if false,
+	// this means that endstop returns false while NOT touched
+
 	// #define X_Min_Endstop_Pin		10
 	// #define X_Min_Endstop_Invert	false
 	// #define X_Max_Endstop_Pin
@@ -108,6 +104,9 @@
 
 	#define Y_Endstop_Pin			10
 	#define Y_Endstop_Invert		false
+	// endstop_invert: if false,
+	// this means that endstop returns false while NOT touched
+
 	// #define Y_Min_Endstop_Pin		11
 	// #define Y_Min_Endstop_Invert	false
 	// #define Y_Max_Endstop_Pin
