@@ -8,9 +8,47 @@
 **************************************************************************/
 
 #pragma once
+# include my_vector.h
 
 /**************** G-code Translator start ****************/
-	void G_Code_Translator(int num, std::vector<String> v){
-		// TODO
+	void G_Code_Translator(int num, vector<String> v){
+		float X;
+		float Y;
+		for (int i=0; i<v.size();i++){
+			String param = v[i];
+			char param_type = param.charAt(0);
+			switch(param_type){
+				case 'X':
+					X = param.setCharAt(0,'').toFloat();
+				case 'Y':
+					Y = param.setCharAt(0,'').toFloat();
+				default:
+					Serial.println("Error, other params");
+					return;
+			}
+		}
+		//================ for debug ===================
+//		Serial.print("X:");
+//		Serial.print(X);
+//		Serial.print(" Y:");
+//		Serial.print(Y);
+//		Serial.println();
+		//================ for debug ===================
+		switch(num){
+			case 0:
+				// G0: Linear move without extrusion(but we don't have that at fitst)
+				//     so I think it's a seperator between each curve;
+			case 1:
+				// G1: Linear move with extrusion, which would really draw a line;
+			case 21:
+				// G21: set units to milimeters;
+			case 90:
+				// G90: set coordinate to absolute;
+			case 92:
+				// G92: set position;
+			default:
+				Serial.println("Error, other command");
+				return;
+		}
 	}
 /**************** G-code Translator end ****************/
