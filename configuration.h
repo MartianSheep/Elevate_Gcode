@@ -15,6 +15,16 @@
 	#define Baudrate 				9600
 /**************** Baudrate end ****************/
 
+/**************** Stepper Controller A4988 start ****************/
+	#define X_Stepper_MS1			true
+	#define X_Stepper_MS2			true
+	#define X_Stepper_MS3			true
+
+	#define Y_Stepper_MS1			true
+	#define Y_Stepper_MS2			true
+	#define Y_Stepper_MS3			true
+/**************** Stepper Controller A4988 end ****************/
+
 /**************** Stepper Motor start ****************/
 	#define X_Stepper_Step_Pin		3
 	#define X_Stepper_Dir_Pin		4
@@ -24,15 +34,18 @@
 	#define Y_Stepper_Dir_Pin		6
 	#define Y_Stepper_Enable_Pin	9
 
-	#define X_Steps_Per_Revolution	20
-	#define Y_Steps_Per_Revolution	20
+	// please insert the original offset
+	#define X_Steps_Per_Rev_Origin	20
+	// please insert the original offset
+	#define Y_Steps_Per_Rev_Origin	20
 	#define X_Mili_Per_Revolution	3.2
 	#define Y_Mili_Per_Revolution	3.2
-	#define Steps_Per_Mili_X		X_Mili_Per_Revolution/X_Steps_Per_Revolution
-	#define Steps_Per_Mili_Y		Y_Mili_Per_Revolution/Y_Steps_Per_Revolution
 
 	#define X_Stepper_Speed			50
 	#define Y_Stepper_Speed			50
+
+	// #define X_Stepper_Mili_Per_Sec	50
+	// #define Y_Stepper_Mili_Per_Sec	50
 
 	// #define X_Feedrate				50
 	// #define Y_Feedrate				50
@@ -50,6 +63,39 @@
 	#define Stepper_Smallest_Step	1
 	#define Step_Delay_Time			0
 	#define	Line_Delay_Time			50
+
+	// X micro steps
+	#if (X_Stepper_MS1 && X_Stepper_MS2 && X_Stepper_MS3)
+		#define X_Steps_Multi		16
+	#elif (X_Stepper_MS1 && X_Stepper_MS2)
+		#define X_Steps_Multi		8
+	#elif X_Stepper_MS2
+		#define X_Steps_Multi		4
+	#elif X_Stepper_MS1
+		#define X_Steps_Multi		2
+	#else
+		#define X_Steps_Multi		1
+	#endif
+	// redefine X_Steps_Per_Revolution
+	#define X_Steps_Per_Revolution	X_Steps_Per_Rev_Origin*X_Steps_Multi
+
+	// Y micro steps
+	#if (Y_Stepper_MS1 && Y_Stepper_MS2 && Y_Stepper_MS3)
+		#define Y_Steps_Multi		16
+	#elif (Y_Stepper_MS1 && Y_Stepper_MS2)
+		#define Y_Steps_Multi		8
+	#elif Y_Stepper_MS2
+		#define Y_Steps_Multi		4
+	#elif Y_Stepper_MS1
+		#define Y_Steps_Multi		2
+	#else
+		#define Y_Steps_Multi		1
+	#endif
+	// redefine Y_Steps_Per_Revolution
+	#define Y_Steps_Per_Revolution	Y_Steps_Per_Rev_Origin*Y_Steps_Multi
+
+	#define Steps_Per_Mili_X		X_Mili_Per_Revolution/X_Steps_Per_Revolution
+	#define Steps_Per_Mili_Y		Y_Mili_Per_Revolution/Y_Steps_Per_Revolution
 /**************** Stepper Motor Advanced end ****************/
 
 /**************** Endstops start ****************/
