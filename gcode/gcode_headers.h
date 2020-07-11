@@ -27,9 +27,9 @@
 		
 		switch (gcode_type){
 			case 'G':
-				g_code_translator(gcode_index, params);
+				G_Code_Translator(gcode_index, params);
 			case 'M':
-				m_code_translator(gcode_index, params);
+				M_Code_Translator(gcode_index, params);
 		} 
 	}
 /**************** Seperator end ****************/
