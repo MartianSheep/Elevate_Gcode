@@ -18,7 +18,7 @@ public:
 				unsigned int step_pin,
 				unsigned int dir_pin,
 				unsigned int ena_pin){
-		// TODO: inverted motor?
+
 		motor = Stepper(steps_per_round, step_pin, dir_pin);
 		enable_pin = ena_pin;
 
@@ -29,7 +29,7 @@ public:
 	~CNC_Stepper() {};
 
 	/**************** Settings start ****************/
-		void setSpeed(float speed){
+		void setSpeed(int speed){
 			motor.setSpeed(speed);
 		}
 
@@ -45,7 +45,7 @@ public:
 	/**************** Settings end ****************/
 
 	/**************** Moving start ****************/
-		void step(float steps){ // moving the motor by giving steps
+		void step(int steps){ // moving the motor by giving steps
 			disable();
 
 			if(inverted)
@@ -62,9 +62,9 @@ public:
 			now_pos = 0;
 		}
 
-		float get_pos() { return now_pos; }
+		int get_pos() { return now_pos; }
 
-		void set_pos(float new_pos) { // force to set now_pos
+		void set_pos(int new_pos) { // force to set now_pos
 			now_pos = new_pos;
 		}
 	/**************** Moving end ****************/
@@ -104,8 +104,6 @@ private:
 	unsigned int	enable_pin;
 	unsigned int	endstop_pin;
 
-	float			now_pos;
+	int				now_pos;
 	// the unit of now_pos should be steps
-	// using float to enable microsteps
-	// while A4988 supports it
 };
