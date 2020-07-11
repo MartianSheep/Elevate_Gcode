@@ -32,6 +32,17 @@ public:
 
 	void clear() { _size = 0; }
 
+	void print(){
+		Serial.print("[ ");
+		for(size_t i = 0; i < _size; ++i){
+			Serial.print("\"");
+			Serial.print(_data[i]);
+			Serial.print("\"");
+			Serial.print(" ")
+		}
+		Serial.print("]\n");
+	}
+
 private:
 	T*				_data;
 	size_t			_size;       // number of valid elements
