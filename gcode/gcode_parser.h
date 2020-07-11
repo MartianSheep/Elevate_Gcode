@@ -24,6 +24,7 @@
 		
 		while( currentIndex < cmd.length()){
 			char currentChar = cmd[currentIndex++];
+//			Serial.println(currentChar);
 			
 			if (currentChar == 'F'){ // case F
 				parsed_data.push_back(value); // push current value in vector
@@ -47,6 +48,7 @@
 				
 			}else if (!currentChar.isdigit() && isalpha){// non-digit & other alpha(like X,Y)
 				if (!isF){
+//					Serial.println(value);
 					parsed_data.push_back(value); // push non F value to vector 
 					value = currentChar // renew the value
 				}else{
@@ -63,8 +65,10 @@
 			}	
 		}
 		if (!isF){ //push last non F value to vector
+//				Serial.println(value);
 				parsed_data.push_back(value);
 			}
+//		Serial.println("======Parsing Complete!======");
 		return parsed_data;
 		
 		
