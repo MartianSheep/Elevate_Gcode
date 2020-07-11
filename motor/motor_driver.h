@@ -71,7 +71,8 @@
 /**************** Stepper Enable end ****************/
 
 /**************** Homing start ****************/
-	// TODO
+	void X_homing() { X_Stepper.homing(); }
+	void Y_homing() { Y_Stepper.homing(); }
 /**************** Homing end ****************/
 
 /**************** Coordinate start ****************/
