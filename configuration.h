@@ -41,12 +41,9 @@
 	#define X_Mili_Per_Revolution	3.2
 	#define Y_Mili_Per_Revolution	3.2
 
-	#define X_Stepper_Speed			50
-	#define Y_Stepper_Speed			50
-
 	// consider feedrate unit
-	// #define X_Stepper_Mili_Per_Min	50
-	// #define Y_Stepper_Mili_Per_Min	50
+	#define X_Stepper_Mili_Per_Min	1.2
+	#define Y_Stepper_Mili_Per_Min	1.2
 
 	#define X_Stepper_Invert		false
 	#define Y_Stepper_Invert		false
@@ -89,6 +86,10 @@
 
 	#define Steps_Per_Mili_X		X_Mili_Per_Revolution/X_Steps_Per_Revolution
 	#define Steps_Per_Mili_Y		Y_Mili_Per_Revolution/Y_Steps_Per_Revolution
+	
+	#define X_Stepper_Period		1000*(60*X_Mili_Per_Revolution)/(X_Stepper_Mili_Per_Min*X_Steps_Per_Revolution)
+	#define Y_Stepper_Period		1000*(60*Y_Mili_Per_Revolution)/(Y_Stepper_Mili_Per_Min*Y_Steps_Per_Revolution)
+
 /**************** Stepper Motor Advanced end ****************/
 
 /**************** Endstops start ****************/
