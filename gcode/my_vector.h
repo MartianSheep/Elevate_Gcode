@@ -38,7 +38,7 @@ public:
 			Serial.print("\"");
 			Serial.print(_data[i]);
 			Serial.print("\"");
-			Serial.print(" ")
+			Serial.print(" ");
 		}
 		Serial.print("]\n");
 	}
