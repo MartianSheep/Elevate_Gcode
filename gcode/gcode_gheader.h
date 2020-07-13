@@ -8,7 +8,8 @@
 **************************************************************************/
 
 #pragma once
-# include my_vector.h
+#include "my_vector.h"
+#include "../motor/motor_driver.h"
 
 /**************** G-code Translator start ****************/
 	void G_Code_Translator(int num, vector<String> v){
@@ -40,14 +41,22 @@
 				//     so I think it's a seperator between each curve;
 			case 1:
 				// G1: Linear move with extrusion, which would really draw a line;
+				break;
 			case 21:
 				// G21: set units to milimeters;
+				break;
+			case 28:
+				X_homing();
+				Y_homing();
+				break;
 			case 90:
 				// G90: set coordinate to absolute;
+				break;
 			case 92:
 				// G92: set position;
+				break;
 			default:
-				Serial.println("Error, other command");
+				Serial.println("Error, command not implemented");
 				return;
 		}
 	}

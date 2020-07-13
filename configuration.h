@@ -84,8 +84,8 @@
 	// redefine Y_Steps_Per_Revolution
 	#define Y_Steps_Per_Revolution	Y_Steps_Per_Rev_Origin*Y_Steps_Multi
 
-	#define Steps_Per_Mili_X		X_Mili_Per_Revolution/X_Steps_Per_Revolution
-	#define Steps_Per_Mili_Y		Y_Mili_Per_Revolution/Y_Steps_Per_Revolution
+	#define Milis_Per_Step_X		X_Mili_Per_Revolution/X_Steps_Per_Revolution
+	#define Milis_Per_Step_Y		Y_Mili_Per_Revolution/Y_Steps_Per_Revolution
 	
 	#define X_Stepper_Period		1000*(60*X_Mili_Per_Revolution)/(X_Stepper_Mili_Per_Min*X_Steps_Per_Revolution)
 	#define Y_Stepper_Period		1000*(60*Y_Mili_Per_Revolution)/(Y_Stepper_Mili_Per_Min*Y_Steps_Per_Revolution)
