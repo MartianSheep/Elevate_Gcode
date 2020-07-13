@@ -77,6 +77,8 @@
 
 /**************** Coordinate start ****************/
 	// TODO
+	float X_coordinate() { return X_Stepper.get_pos()*Milis_Per_Step_X; }
+	float Y_coordinate() { return Y_Stepper.get_pos()*Milis_Per_Step_Y; }
 /**************** Coordinate end ****************/
 
 /**************** Kill / Halt start ****************/
