@@ -17,7 +17,7 @@ public:
 				unsigned int dir_pin,
 				unsigned int ena_pin){
 
-		period_per_step = period;
+		period_per_step = period * 1000;
 		step_pin = st_pin;
 		direction_pin = dir_pin;
 		enable_pin = ena_pin;
@@ -35,6 +35,9 @@ public:
 			pinMode(direction_pin, OUTPUT);
 			pinMode(enable_pin, OUTPUT);
 
+			// enable is false
+			disable();
+
 			Serial.println(period_per_step);
 		}
 
@@ -51,28 +54,37 @@ public:
 		void step(int steps = 1){ // moving the motor by giving steps
 			disable();
 
+			// define when motor runs negative way, 
+			// direction_pin is HIGH
 			if(steps < 0){
-				digitalWrite(direction_pin, HIGH);
 				steps = -steps;
+				if(inverted)
+					digitalWrite(direction_pin, LOW);
+				else
+					digitalWrite(direction_pin, HIGH);
 			}
 			else{
-				digitalWrite(direction_pin, LOW);
+				if(inverted)
+					digitalWrite(direction_pin, HIGH);
+				else
+					digitalWrite(direction_pin, LOW);
 			}
 
 			for(int i = 0; i < steps; ++i){
 				digitalWrite(step_pin, HIGH);
-				delay(period_per_step/2);
+				delayMicroseconds(period_per_step/2);
 				digitalWrite(step_pin, LOW);
-				delay(period_per_step/2);
+				delayMicroseconds(period_per_step/2);
 			}
 
+			now_pos += steps;
 		}
 
 		void homing(){
 			// keep going on one single direction until hit endstop
 			// and set that position as 0
 			now_pos = 0;
-			int small_step = 1;
+			int small_step = -1;
 
 			while(get_endstop() == endstop_inverted){
 				step(small_step);
@@ -139,7 +151,9 @@ private:
 	unsigned int	endstop_pin;
 
 	int				now_pos;
-
-	float			period_per_step;
 	// the unit of now_pos should be steps
+
+	int				period_per_step;
+	// the unit of period_per_step is microseconds
+	// but init puts miliseconds	
 };
