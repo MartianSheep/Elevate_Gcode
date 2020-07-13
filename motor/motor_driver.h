@@ -59,16 +59,33 @@
 		int Y_one_step = -1;
 		if(Y_steps > 0) Y_one_step = 1;
 
-		while(X_steps != 0){
-			X_Stepper.step(X_one_step);
-			X_steps -= X_one_step;
-			int Y_shoud_go = X_Stepper.get_pos()*m - Y_Stepper.get_pos();
-			if(Y_shoud_go!=0){
-				Y_Stepper.step(Y_shoud_go);
+		if(abs(X_steps)>=abs(Y_steps)){
+			while(X_steps != 0){
+				X_Stepper.step(X_one_step);
+				X_steps -= X_one_step;
+				int Y_shoud_go = X_Stepper.get_pos()*m - Y_Stepper.get_pos();
+				if(Y_shoud_go!=0){
+					Y_Stepper.step(Y_shoud_go);
+				}
 			}
+
+			Y_Stepper.step(next_Y - Y_Stepper.get_pos());
 		}
 
-		Y_Stepper.step(next_Y - Y_Stepper.get_pos());
+		else
+		{
+			while(Y_steps != 0){
+				Y_Stepper.step(Y_one_step);
+				Y_steps -= Y_one_step;
+				int X_should_go = X_Stepper.get_pos()*m - Y_Stepper.get_pos();
+				if(X_should_go!=0){
+					X_Stepper.step(X_should_go);
+				}
+			}
+
+			X_Stepper.step(next_X - X_Stepper.get_pos());
+		}
+		
 	}
 
 	void Move_Stepper_Circular_R(bool dir, float X, float Y, float R){
