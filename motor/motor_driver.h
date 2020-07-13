@@ -42,8 +42,33 @@
 /**************** Stepper Moving start ****************/
 	void Move_Stepper_Linear(float X, float Y){
 		// TODO
-		float now_X = X_Stepper.get_pos();
-		float now_Y = Y_Stepper.get_pos();
+		int now_X = X_Stepper.get_pos();
+		int now_Y = Y_Stepper.get_pos();
+
+		int next_X = X/Milis_Per_Step_X;
+		int next_Y = Y/Milis_Per_Step_Y;
+
+		int X_steps = next_X - now_X;
+		int Y_steps = next_Y - now_Y;
+		
+		float m = 0;
+		if(X_steps!=0) m = Y_steps/X_steps;
+
+		int X_one_step = -1;
+		if(X_steps > 0) X_one_step = 1;
+		int Y_one_step = -1;
+		if(Y_steps > 0) Y_one_step = 1;
+
+		while(X_steps != 0){
+			X_Stepper.step(X_one_step);
+			X_steps -= X_one_step;
+			int Y_shoud_go = X_Stepper.get_pos()*m - Y_Stepper.get_pos();
+			if(Y_shoud_go!=0){
+				Y_Stepper.step(Y_shoud_go);
+			}
+		}
+
+		Y_Stepper.step(next_Y - Y_Stepper.get_pos());
 	}
 
 	void Move_Stepper_Circular_R(bool dir, float X, float Y, float R){
