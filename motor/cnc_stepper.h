@@ -24,20 +24,16 @@ public:
 
 		now_pos = 0;
 		enabled = false;
-		// inverted = false;
+		inverted = false;
 	}
 	~CNC_Stepper() {};
 
 	/**************** Settings start ****************/
 		void init(bool invert = false){
-			// inverted = invert;
+			inverted = invert;
 			pinMode(step_pin, OUTPUT);
 			pinMode(direction_pin, OUTPUT);
 			pinMode(enable_pin, OUTPUT);
-
-			if(invert){
-				digitalWrite(direction_pin, HIGH);
-			}
 
 			Serial.println(period_per_step);
 		}
@@ -55,12 +51,21 @@ public:
 		void step(int steps = 1){ // moving the motor by giving steps
 			disable();
 
+			if(steps < 0){
+				digitalWrite(direction_pin, HIGH);
+				steps = -steps;
+			}
+			else{
+				digitalWrite(direction_pin, LOW);
+			}
+
 			for(int i = 0; i < steps; ++i){
 				digitalWrite(step_pin, HIGH);
 				delay(period_per_step/2);
 				digitalWrite(step_pin, LOW);
 				delay(period_per_step/2);
 			}
+
 		}
 
 		void homing(){
@@ -110,15 +115,16 @@ public:
 	/**************** Enable end ****************/
 
 private:
+	bool			inverted;
+	// inverted means that if the motor is plugged in inverted
+	// this means that the motor will turn the opposite direction
+	// so we need this bool to distinguish
 	bool			enabled;
 	// enable means that if human can turn the motor by hand
 	// motor should be disabled during machine process
 	// and enable by enable()
 	// not sure if we can do enable() after a process is done
 	// so that the motor won't keep making noise while halt
-
-	// bool			inverted;
-	// if the motor's direction is inverted
 	bool			endstop_inverted;
 	// if the endstop's output is inverted
 	// would like to set to 0 if homing is not done
