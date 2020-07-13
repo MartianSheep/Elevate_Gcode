@@ -40,17 +40,17 @@
 			else if (currentChar == ' '){ //skip blankspace
 				continue;
 			}
-			else if (!currentChar.isdigit() && !isalpha){ //non-digit & first alpha(like G)
+			else if (!isDigit(currentChar) && !isalpha){ //non-digit & first alpha(like G)
 				
 				isalpha = true;
 				value += currentChar;
 				
 				
-			}else if (!currentChar.isdigit() && isalpha){// non-digit & other alpha(like X,Y)
+			}else if (!isDigit(currentChar) && isalpha){// non-digit & other alpha(like X,Y)
 				if (!isF){
 //					Serial.println(value);
 					parsed_data.push_back(value); // push non F value to vector 
-					value = currentChar // renew the value
+					value = currentChar; // renew the value
 				}else{
 					value = currentChar; // renew the value
 					isF = false; 

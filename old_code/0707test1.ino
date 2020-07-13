@@ -11,14 +11,28 @@
 const int dirPin1 = 4; 
 const int stepPin2 = 5; 
 const int dirPin2 = 6; */
+
+
+cosnt int stepPin1 = 2;
+cosnt int dirPin1 = 5;
+const int stepPin2 = 3;
+cosnt int dirPin2 = 6;
+
+
 const int stepsPerRevolution = 200; 
 const int penZUp = 90;
 const int penZDown = 60;
 int pos = 0;
 const int penServoPin = 7;
-
+/*
 Stepper myStepperX(stepsPerRevolution, 3, 4);
 Stepper myStepperY(stepsPerRevolution, 5, 6);
+*/
+
+Stepper myStepperX(stepsPerRevolution, 2, 5);
+Stepper myStepperY(stepsPerRevolution, 3, 6);
+
+
 Servo penServo;
 
 struct point { 

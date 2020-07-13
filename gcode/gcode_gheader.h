@@ -20,9 +20,11 @@
 			char param_type = param.charAt(0);
 			switch(param_type){
 				case 'X':
-					X = param.setCharAt(0,'').toFloat();
+					param.setCharAt(0,'\0');
+					X = param.toFloat();
 				case 'Y':
-					Y = param.setCharAt(0,'').toFloat();
+					param.setCharAt(0,'\0');
+					Y = param.toFloat();
 				default:
 					Serial.println("Error, other params");
 					return;
@@ -59,5 +61,6 @@
 				Serial.println("Error, command not implemented");
 				return;
 		}
+		return;
 	}
 /**************** G-code Translator end ****************/

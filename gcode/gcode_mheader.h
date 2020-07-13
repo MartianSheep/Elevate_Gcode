@@ -10,7 +10,7 @@
 #pragma once
 
 /**************** M-code Translator start ****************/
-	void M_Code_Translator(int num, std::vector<String> v){
+	void M_Code_Translator(int num, vector<String> v){
 		// TODO
 	}
 /**************** M-code Translator end ****************/
