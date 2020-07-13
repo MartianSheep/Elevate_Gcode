@@ -72,8 +72,7 @@
 			Y_Stepper.step(next_Y - Y_Stepper.get_pos());
 		}
 
-		else
-		{
+		else{
 			while(Y_steps != 0){
 				Y_Stepper.step(Y_one_step);
 				Y_steps -= Y_one_step;
