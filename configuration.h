@@ -87,9 +87,9 @@
 	#define X_Milis_Per_Step		X_Mili_Per_Revolution/X_Steps_Per_Revolution
 	#define Y_Milis_Per_Step		Y_Mili_Per_Revolution/Y_Steps_Per_Revolution
 	
-	#define X_Stepper_Period		X_Milis_Per_Step/X_Milis_Per_Second
-	#define Y_Stepper_Period		Y_Milis_Per_Step/Y_Milis_Per_Second
-	// unit is seconds
+	#define X_Stepper_Period		1000*X_Milis_Per_Step/X_Milis_Per_Second
+	#define Y_Stepper_Period		1000*Y_Milis_Per_Step/Y_Milis_Per_Second
+	// unit is miliseconds
 
 /**************** Stepper Motor Advanced end ****************/
 

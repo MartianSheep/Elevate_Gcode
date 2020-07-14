@@ -18,6 +18,7 @@ public:
 				unsigned int ena_pin){
 
 		period_per_step = period * 1000;
+		// unit becomes microseconds
 		step_pin = st_pin;
 		direction_pin = dir_pin;
 		enable_pin = ena_pin;
