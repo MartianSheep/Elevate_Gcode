@@ -16,6 +16,7 @@
 /**************** Parser start ****************/
 	vector<String> Gcode_Parser(String cmd){
 		vector<String> parsed_data;
+		Serial.println("Parser...");
 		
 		int currentIndex = 0;
 		bool isalpha = false;

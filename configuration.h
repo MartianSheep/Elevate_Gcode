@@ -18,11 +18,11 @@
 /**************** Stepper Controller A4988 start ****************/
 	#define X_Stepper_MS1			true
 	#define X_Stepper_MS2			true
-	#define X_Stepper_MS3			true
+	#define X_Stepper_MS3			false
 
 	#define Y_Stepper_MS1			true
 	#define Y_Stepper_MS2			true
-	#define Y_Stepper_MS3			true
+	#define Y_Stepper_MS3			false
 /**************** Stepper Controller A4988 end ****************/
 
 /**************** Stepper Motor start ****************/
@@ -42,8 +42,8 @@
 	#define Y_Mili_Per_Revolution	3.2
 
 	// consider feedrate unit
-	#define X_Milis_Per_Second		1.0
-	#define Y_Milis_Per_Second		1.0
+	#define X_Milis_Per_Second		0.25
+	#define Y_Milis_Per_Second		0.25
 
 	#define X_Stepper_Invert		false
 	#define Y_Stepper_Invert		false
@@ -67,7 +67,7 @@
 			#define X_Steps_Multi		1
 		#endif
 		// redefine X_Steps_Per_Revolution
-		#define X_Steps_Per_Revolution	X_Steps_Per_Rev_Origin*X_Steps_Multi
+		#define X_Steps_Per_Revolution	(X_Steps_Per_Rev_Origin*X_Steps_Multi)
 
 	// Y micro steps
 		#if (Y_Stepper_MS1 && Y_Stepper_MS2 && Y_Stepper_MS3)
@@ -82,10 +82,10 @@
 			#define Y_Steps_Multi		1
 		#endif
 		// redefine Y_Steps_Per_Revolution
-		#define Y_Steps_Per_Revolution	Y_Steps_Per_Rev_Origin*Y_Steps_Multi
+		#define Y_Steps_Per_Revolution	(Y_Steps_Per_Rev_Origin*Y_Steps_Multi)
 
-	#define X_Milis_Per_Step		X_Mili_Per_Revolution/X_Steps_Per_Revolution
-	#define Y_Milis_Per_Step		Y_Mili_Per_Revolution/Y_Steps_Per_Revolution
+	#define X_Milis_Per_Step		(X_Mili_Per_Revolution/X_Steps_Per_Revolution)
+	#define Y_Milis_Per_Step		(Y_Mili_Per_Revolution/Y_Steps_Per_Revolution)
 	
 	#define X_Stepper_Period		1000*X_Milis_Per_Step/X_Milis_Per_Second
 	#define Y_Stepper_Period		1000*Y_Milis_Per_Step/Y_Milis_Per_Second

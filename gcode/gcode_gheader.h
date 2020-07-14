@@ -13,6 +13,9 @@
 
 /**************** G-code Translator start ****************/
 	void G_Code_Translator(int num, vector<String> v){
+		Serial.println("G_code_translator...");
+//		Serial.println("code index:");
+//		Serial.println(num);
 		float X;
 		float Y;
 		for (int i=0; i<v.size();i++){
@@ -20,22 +23,29 @@
 			char param_type = param.charAt(0);
 			switch(param_type){
 				case 'X':
-					param.setCharAt(0,'\0');
+//					Serial.println(param);
+					param = param.substring(1,param.length());
+//					Serial.println(param);
 					X = param.toFloat();
+					break;
 				case 'Y':
-					param.setCharAt(0,'\0');
+//					Serial.println(param);
+					param = param.substring(1,param.length());
+//					Serial.println(param);
 					Y = param.toFloat();
+					break;
 				default:
+					Serial.println(param_type);
 					Serial.println("Error, other params");
 					return;
 			}
 		}
 		//================ for debug ===================
-		Serial.print("X:");
-		Serial.print(X);
-		Serial.print(" Y:");
-		Serial.print(Y);
-		Serial.println();
+//		Serial.print("X:");
+//		Serial.print(X);
+//		Serial.print(" Y:");
+//		Serial.print(Y);
+//		Serial.println();
 		//================ for debug ===================
 		switch(num){
 			case 0:

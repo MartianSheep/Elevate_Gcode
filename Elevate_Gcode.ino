@@ -31,6 +31,15 @@ String cmd = "";
 
 void loop() {
 	cmd = Serial.readStringUntil('\n'); //readin command
+  if (cmd!=""){
 	vector<String> params = Gcode_Parser(cmd); //parse and return params
 	Seperator(params); // seperate to G/M translator => motor driving
+ 
+  }
+//  X_Stepper.step();
+//  digitalWrite(3, HIGH);
+//  delayMicroseconds(100000);
+//  digitalWrite(3, LOW);
+//  delayMicroseconds(100000);
+  
 }

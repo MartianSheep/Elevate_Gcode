@@ -18,12 +18,15 @@
 		
 		String gcode_head = cmd[0];
 		char gcode_type = gcode_head.charAt(0);
-		int gcode_index = gcode_head.substring(1,gcode_head.length()-1).toInt();
+		int gcode_index = gcode_head.substring(1,gcode_head.length()).toInt();
 		
 		vector<String> params;
 		for (int i=1;i<cmd.size();i++){
 			params.push_back(cmd[i]);
 		}
+		
+		Serial.println("Seperator...");
+//		params.print();
 		
 		switch (gcode_type){
 			case 'G':

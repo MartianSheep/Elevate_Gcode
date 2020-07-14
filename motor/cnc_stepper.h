@@ -17,8 +17,9 @@ public:
 				unsigned int dir_pin,
 				unsigned int ena_pin){
 
-		period_per_step = period * 1000;
-		// unit becomes microseconds
+//		period_per_step = period * 1000;
+		period_per_step = period;
+		// unit becomes miliseconds
 		step_pin = st_pin;
 		direction_pin = dir_pin;
 		enable_pin = ena_pin;
@@ -54,7 +55,7 @@ public:
 	/**************** Moving start ****************/
 		void step(int steps = 1){ // moving the motor by giving steps
 			disable();
-
+//			Serial.println("step called");
 			// define when motor runs negative way, 
 			// direction_pin is HIGH
 			if(steps < 0){
@@ -73,9 +74,11 @@ public:
 
 			for(int i = 0; i < steps; ++i){
 				digitalWrite(step_pin, HIGH);
-				delayMicroseconds(period_per_step/2);
+//				delayMicroseconds(period_per_step/2);
+				delay(period_per_step/2);
 				digitalWrite(step_pin, LOW);
-				delayMicroseconds(period_per_step/2);
+//				delayMicroseconds(period_per_step/2);
+				delay(period_per_step/2);
 			}
 
 			now_pos += steps;
