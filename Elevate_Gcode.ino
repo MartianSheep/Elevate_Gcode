@@ -30,6 +30,7 @@ void setup() {
 String cmd = "";
 
 void loop() {
-	cmd = Serial.readStringUntil('\n');
-	// TODO
+	cmd = Serial.readStringUntil('\n'); //readin command
+	vector<String> params = Gcode_Parser(cmd); //parse and return params
+	Seperator(params); // seperate to G/M translator => motor driving
 }

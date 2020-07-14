@@ -31,18 +31,21 @@
 			}
 		}
 		//================ for debug ===================
-//		Serial.print("X:");
-//		Serial.print(X);
-//		Serial.print(" Y:");
-//		Serial.print(Y);
-//		Serial.println();
+		Serial.print("X:");
+		Serial.print(X);
+		Serial.print(" Y:");
+		Serial.print(Y);
+		Serial.println();
 		//================ for debug ===================
 		switch(num){
 			case 0:
 				// G0: Linear move without extrusion(but we don't have that at fitst)
 				//     so I think it's a seperator between each curve;
+				Move_Stepper_Linear(X,Y); 
+				break;
 			case 1:
 				// G1: Linear move with extrusion, which would really draw a line;
+				Move_Stepper_Linear(X,Y); 
 				break;
 			case 21:
 				// G21: set units to milimeters;
@@ -55,11 +58,17 @@
 				// G90: set coordinate to absolute;
 				break;
 			case 92:
-				// G92: set position;
+				// G92: set position and return now position;
+				Serial.print("Now Position: (");
+				Serial.print( X_coordinate() );
+				Serial.print(',');
+				Serial.print( Y_coordinate() );
+				Serial.print(')');
+				Serial.println();
 				break;
 			default:
 				Serial.println("Error, command not implemented");
-				return;
+				break;
 		}
 		return;
 	}

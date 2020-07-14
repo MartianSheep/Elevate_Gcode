@@ -41,7 +41,7 @@
 
 /**************** Stepper Moving start ****************/
 	void Move_Stepper_Linear(float X, float Y){
-		// TODO
+		
 		int now_X = X_Stepper.get_pos();
 		int now_Y = Y_Stepper.get_pos();
 
@@ -87,13 +87,13 @@
 		
 	}
 
-	void Move_Stepper_Circular_R(bool dir, float X, float Y, float R){
-		// TODO
-	}
-
-	void Move_Stepper_Circular_IJ(bool dir, float X, float Y, float I, float J){
-		// TODO
-	}
+//	void Move_Stepper_Circular_R(bool dir, float X, float Y, float R){
+//		// TODO
+//	}
+//
+//	void Move_Stepper_Circular_IJ(bool dir, float X, float Y, float I, float J){
+//		// TODO
+//	}
 /**************** Stepper Moving end ****************/
 
 /**************** Stepper Enable start ****************/
@@ -117,9 +117,10 @@
 /**************** Homing end ****************/
 
 /**************** Coordinate start ****************/
-	// TODO
+
 	float X_coordinate() { return (float)X_Stepper.get_pos()*Milis_Per_Step_X; }
 	float Y_coordinate() { return (float)Y_Stepper.get_pos()*Milis_Per_Step_Y; }
+	
 /**************** Coordinate end ****************/
 
 /**************** Kill / Halt start ****************/
