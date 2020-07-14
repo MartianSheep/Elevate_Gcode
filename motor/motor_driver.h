@@ -71,7 +71,7 @@
 				X_Stepper.step(X_one_step);
 				X_steps -= X_one_step;
 				int Y_should_go = X_Stepper.get_pos()*m - Y_Stepper.get_pos();
-				Serial.println(X_steps);
+				// Serial.println(X_steps);
 				if(Y_should_go!=0){
 					Y_Stepper.step(Y_should_go);
 				}
