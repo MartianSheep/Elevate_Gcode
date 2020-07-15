@@ -28,22 +28,46 @@
 	Servo Pen_Servo;
 /**************** Macro Definitions of Motors end ****************/
 
-/**************** Servo Moving start ****************/
-	void Move_Pen(bool down){
-		if(down)
-			Pen_Servo.write(Servo_Pen_Down_Angle);
-		else
-			Pen_Servo.write(Servo_Pen_Up_Angle);
+/**************** Servo start ****************/
+	void Pen_init(unsigned int pin){
+		Pen_Servo.attach(pin);
+		Pen_Servo.write(Servo_Pen_Up_Angle);
+		delay(Pen_Delay_Time);
+	}
 
+	void Pen_Degree(int degree){
+		#ifdef DEBUG
+			Serial.print("Servo: moving to ");
+			Serial.print(degree);
+			Serial.println(" degree.");
+		#endif
+
+		Pen_Servo.write(degree);
+		delay(Pen_Delay_Time);
+	}
+
+	void Move_Pen(bool down){
+		if(down){
+			#ifdef DEBUG
+				Serial.println("Servo: Pen down");
+			#endif
+			Pen_Degree(Servo_Pen_Down_Angle);
+		}
+		else{
+			#ifdef DEBUG
+				Serial.println("Servo: Pen up");
+			#endif
+			Pen_Degree(Servo_Pen_Up_Angle);
+		}
 		return;
 	}
-/**************** Servo Moving end ****************/
+/**************** Servo end ****************/
 
 /**************** Stepper Moving start ****************/
 	void Move_Stepper_Linear(float X, float Y){
-		Serial.println("Linear moving...");
-//		for(int i = 0; i < 1000; ++i)
-//			X_Stepper.step(1);
+		#ifdef DEBUG
+			Serial.println("Linear moving...");
+		#endif
 		
 		long now_X = X_Stepper.get_pos();
 		long now_Y = Y_Stepper.get_pos();
@@ -51,27 +75,35 @@
 		long next_X = X/X_Milis_Per_Step;
 		long next_Y = Y/Y_Milis_Per_Step;
 
+		#ifdef DEBUG
+			Serial.print("X/X_Milis_Per_Step: ");
+			Serial.println(X/X_Milis_Per_Step);
+			Serial.print("next_X: ");
+			Serial.println(next_X);
+
+			Serial.print("Y/Y_Milis_Per_Step: ");
+			Serial.println(Y/Y_Milis_Per_Step);
+			Serial.print("next_Y: ");
+			Serial.println(next_Y);
+		#endif
+
 		long X_steps = next_X - now_X;
 		long Y_steps = next_Y - now_Y;
-		
-//		Serial.println(X_steps);
-//		Serial.println(Y_steps);
 		
 		float m = 0;
 		if(X_steps!=0) m = Y_steps/X_steps;
 
-		int X_one_step = -1;
-		if(X_steps > 0) X_one_step = 1;
-		int Y_one_step = -1;
-		if(Y_steps > 0) Y_one_step = 1;
+		// Stepper_Smallest_Step is "1" in configuration.h
+		int X_one_step = -Stepper_Smallest_Step;
+		if(X_steps > 0) X_one_step = Stepper_Smallest_Step;
+		int Y_one_step = -Stepper_Smallest_Step;
+		if(Y_steps > 0) Y_one_step = Stepper_Smallest_Step;
 
 		if(abs(X_steps)>=abs(Y_steps)){
 			while(X_steps != 0){
-//				Serial.println("wtf");
 				X_Stepper.step(X_one_step);
 				X_steps -= X_one_step;
 				int Y_should_go = X_Stepper.get_pos()*m - Y_Stepper.get_pos();
-				// Serial.println(X_steps);
 				if(Y_should_go!=0){
 					Y_Stepper.step(Y_should_go);
 				}
@@ -82,7 +114,6 @@
 
 		else{
 			while(Y_steps != 0){
-				//Serial.println("wtff");
 				Y_Stepper.step(Y_one_step);
 				Y_steps -= Y_one_step;
 				int X_should_go = X_Stepper.get_pos()*m - Y_Stepper.get_pos();
@@ -94,17 +125,19 @@
 			X_Stepper.step(next_X - X_Stepper.get_pos());
 		}
 
-		Serial.println("End Move");
-		
+		#ifdef DEBUG
+			Serial.println("End Move");
+		#endif
 	}
 
-//	void Move_Stepper_Circular_R(bool dir, float X, float Y, float R){
-//		// TODO
-//	}
-//
-//	void Move_Stepper_Circular_IJ(bool dir, float X, float Y, float I, float J){
-//		// TODO
-//	}
+	//	Not going to implement in this version
+	//	void Move_Stepper_Circular_R(bool dir, float X, float Y, float R){
+	//		// TODO
+	//	}
+	//
+	//	void Move_Stepper_Circular_IJ(bool dir, float X, float Y, float I, float J){
+	//		// TODO
+	//	}
 /**************** Stepper Moving end ****************/
 
 /**************** Stepper Enable start ****************/
@@ -131,10 +164,19 @@
 
 	float X_coordinate() { return (float)X_Stepper.get_pos()*X_Milis_Per_Step; }
 	float Y_coordinate() { return (float)Y_Stepper.get_pos()*Y_Milis_Per_Step; }
+
+	void set_X_coordinate(float new_pos){
+		// TODO
+	}
+	void set_Y_coordinate(float new_pos){
+		// TODO
+	}
 	
 /**************** Coordinate end ****************/
 
 /**************** Kill / Halt start ****************/
 	// TODO
-
+	// Not going to implement in this version
+	// Please directly shut down the machine
+	// to kill the system
 /**************** Kill / Halt end ****************/

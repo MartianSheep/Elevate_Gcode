@@ -17,7 +17,6 @@ public:
 				unsigned int dir_pin,
 				unsigned int ena_pin){
 
-		// period_per_step = period * 1000;
 		period_per_step = period;
 		// unit becomes miliseconds
 		step_pin = st_pin;
@@ -40,7 +39,11 @@ public:
 			// enable is false
 			disable();
 
-			Serial.println(period_per_step);
+			#ifdef DEBUG
+				Serial.print("CNC_Stepper: init period ");
+				Serial.print(period_per_step);
+				Serial.println(" ms.");
+			#endif
 		}
 
 		void setEndstop(unsigned int end_pin, bool end_inv = false){
@@ -55,7 +58,13 @@ public:
 	/**************** Moving start ****************/
 		void step(int steps = 1){ // moving the motor by giving steps
 			disable();
-			// Serial.println("step called");
+
+			#ifdef DEBUG
+				Serial.print("CNC_Stepper: Step is called for ");
+				Serial.print(steps);
+				Serial.println(" steps");
+			#endif
+
 			// define when motor runs negative way, 
 			// direction_pin is HIGH
 			if(steps < 0){
@@ -74,10 +83,8 @@ public:
 
 			for(int i = 0; i < steps; ++i){
 				digitalWrite(step_pin, HIGH);
-				// delayMicroseconds(period_per_step/2);
 				delay(period_per_step/2);
 				digitalWrite(step_pin, LOW);
-				// delayMicroseconds(period_per_step/2);
 				delay(period_per_step/2);
 			}
 
@@ -90,9 +97,17 @@ public:
 			now_pos = 0;
 			int small_step = -1;
 
+			#ifdef DEBUG
+				Serial.println("CNC_Stepper: homing called...");
+			#endif
+
 			while(get_endstop() == endstop_inverted){
 				step(small_step);
 			}
+
+			#ifdef DEBUG
+				Serial.println("CNC_Stepper: homing done !!");
+			#endif
 		}
 
 		bool get_endstop(){

@@ -13,9 +13,12 @@
 
 /**************** G-code Translator start ****************/
 	void G_Code_Translator(int num, vector<String> v){
-		Serial.println("G_code_translator...");
-//		Serial.println("code index:");
-//		Serial.println(num);
+		#ifdef DEBUG
+			Serial.println("G_code_translator...");
+			Serial.print("code index:");
+			Serial.println(num);
+		#endif
+
 		float X;
 		float Y;
 		for (int i=0; i<v.size();i++){
@@ -35,21 +38,24 @@
 					Y = param.toFloat();
 					break;
 				default:
+					Serial.println("Gcode Translator: ");
 					Serial.println(param_type);
 					Serial.println("Error, other params");
 					return;
 			}
 		}
-		//================ for debug ===================
-//		Serial.print("X:");
-//		Serial.print(X);
-//		Serial.print(" Y:");
-//		Serial.print(Y);
-//		Serial.println();
-		//================ for debug ===================
+
+		#ifdef DEBUG
+			Serial.print("X: ");
+			Serial.print(X);
+			Serial.print(" Y: ");
+			Serial.print(Y);
+			Serial.println();
+		#endif
+
 		switch(num){
 			case 0:
-				// G0: Linear move without extrusion(but we don't have that at fitst)
+				// G0: Linear move without extrusion(but we don't have that at first)
 				//     so I think it's a seperator between each curve;
 				Move_Stepper_Linear(X,Y); 
 				break;
@@ -69,6 +75,7 @@
 				break;
 			case 92:
 				// G92: set position and return now position;
+				// TODO: set position
 				Serial.print("Now Position: (");
 				Serial.print( X_coordinate() );
 				Serial.print(',');

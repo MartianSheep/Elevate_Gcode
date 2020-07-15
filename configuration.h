@@ -9,7 +9,8 @@
 
 #pragma once
 
-#define DEBUG false
+// Uncomment the below to enable DEBUG mode.
+// #define DEBUG
 
 /**************** Baudrate start ****************/
 	#define Baudrate 				9600
@@ -99,20 +100,10 @@
 	// endstop_invert: if false,
 	// this means that endstop returns false while NOT touched
 
-	// #define X_Min_Endstop_Pin		10
-	// #define X_Min_Endstop_Invert	false
-	// #define X_Max_Endstop_Pin
-	// #define X_Max_Endstop_Invert	false
-
 	#define Y_Endstop_Pin			10
 	#define Y_Endstop_Invert		false
 	// endstop_invert: if false,
 	// this means that endstop returns false while NOT touched
-
-	// #define Y_Min_Endstop_Pin		11
-	// #define Y_Min_Endstop_Invert	false
-	// #define Y_Max_Endstop_Pin
-	// #define Y_Max_Endstop_Invert	false
 /**************** Endstops end ****************/
 
 /**************** Servo Motor start ****************/

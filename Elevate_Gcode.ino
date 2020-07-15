@@ -7,9 +7,6 @@
 	Copyright		[ Copyleft(c) 2020-present NTUEE, NTU, Taiwan ]
 **************************************************************************/
 
-#include <Servo.h>
-#include <Stepper.h>
-
 #include "configuration.h"
 #include "gcode/gcode_headers.h"
 #include "motor/motor_driver.h"
@@ -17,9 +14,7 @@
 void setup() {
 	Serial.begin(Baudrate);
 
-	Pen_Servo.attach(Servo_Pin);
-	Pen_Servo.write(Servo_Pen_Up_Angle);
-	delay(Pen_Delay_Time);
+	Pen_init(Servo_Pin);
 
 	X_Stepper.init(X_Stepper_Invert);
 	X_Stepper.setEndstop(X_Endstop_Pin, X_Endstop_Invert);
@@ -30,16 +25,9 @@ void setup() {
 String cmd = "";
 
 void loop() {
-	cmd = Serial.readStringUntil('\n'); //readin command
-  if (cmd!=""){
-	vector<String> params = Gcode_Parser(cmd); //parse and return params
-	Seperator(params); // seperate to G/M translator => motor driving
- 
-  }
-//  X_Stepper.step();
-//  digitalWrite(3, HIGH);
-//  delayMicroseconds(100000);
-//  digitalWrite(3, LOW);
-//  delayMicroseconds(100000);
-  
+	cmd = Serial.readStringUntil('\n'); // read in command
+	if (cmd!=""){
+		vector<String> params = Gcode_Parser(cmd); // parse and return params
+		Seperator(params); // seperate to G/M translator => motor driving 
+	}
 }
