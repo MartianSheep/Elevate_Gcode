@@ -10,7 +10,7 @@
 #pragma once
 
 // Uncomment the below to enable DEBUG mode.
-// #define DEBUG
+#define DEBUG
 
 /**************** Baudrate start ****************/
 	#define Baudrate 				9600
@@ -43,8 +43,8 @@
 	#define Y_Mili_Per_Revolution	3.2
 
 	// consider feedrate unit
-	#define X_Milis_Per_Second		1.0
-	#define Y_Milis_Per_Second		1.0
+	#define X_Milis_Per_Second		20.0
+	#define Y_Milis_Per_Second		20.0
 
 	#define X_Stepper_Invert		false
 	#define Y_Stepper_Invert		false
@@ -109,8 +109,8 @@
 /**************** Servo Motor start ****************/
 	#define Servo_Pin				7
 
-	#define Servo_Pen_Up_Angle		90
-	#define Servo_Pen_Down_Angle	45
+	#define Servo_Pen_Up_Angle		60
+	#define Servo_Pen_Down_Angle	0
 
 	#define Pen_Delay_Time			100
 /**************** Servo Motor end ****************/

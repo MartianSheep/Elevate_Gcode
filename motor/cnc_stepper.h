@@ -172,7 +172,8 @@ private:
 	int				now_pos;
 	// the unit of now_pos should be steps
 
-	long			period_per_step;
+	// long			period_per_step;
+	float			period_per_step;
 	// the unit of period_per_step is microseconds
 	// but init puts miliseconds	
 };

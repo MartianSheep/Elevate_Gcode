@@ -16,16 +16,28 @@
 	vector<String> Gcode_Parser(String cmd){
 		vector<String> parsed_data;
 		#ifdef DEBUG
-			Serial.println("Parser...");
+			Serial.print("Parser parsing: \"");
+			Serial.print(cmd);
+			Serial.println("\"...");
 		#endif
 
 		int currentIndex = 0;
 		bool isalpha = false;
 		bool isF = false;
-		String value;
+		String value = "";
 		
 		while( currentIndex < cmd.length() ){
+			#ifdef DEBUG
+				Serial.print("currentIndex: ");
+				Serial.println(currentIndex);
+			#endif
+
 			char currentChar = cmd[currentIndex++];
+
+			#ifdef DEBUG
+				Serial.print("currentChar: ");
+				Serial.println(currentChar);
+			#endif
 			
 			if (currentChar == 'F'){ // case F
 				parsed_data.push_back(value); // push current value in vector
@@ -53,8 +65,19 @@
 			}
 			else{
 				value += currentChar; // add digit to value
-			}	
+			}
+
+			#ifdef DEBUG
+				Serial.print("Now parsed: ");
+				parsed_data.print();
+			#endif
 		}
+
+		#ifdef DEBUG
+			Serial.println("End of string");
+			Serial.print("Last value: ");
+			// Serial.println(value);
+		#endif
 
 		if (!isF){ // push last non F value to vector
 			parsed_data.push_back(value);
