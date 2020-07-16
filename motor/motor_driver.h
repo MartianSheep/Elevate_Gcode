@@ -156,12 +156,12 @@
 /**************** Stepper Moving end ****************/
 
 /**************** Stepper Enable start ****************/
-	void Enable_Stepper_X(bool enable){
+	void Enable_Stepper_X(bool enable = true){
 		if(enable)	X_Stepper.enable();
 		else 		X_Stepper.disable();
 	}
 
-	void Enable_Stepper_Y(bool enable){
+	void Enable_Stepper_Y(bool enable = true){
 		if(enable)	Y_Stepper.enable();
 		else		Y_Stepper.disable();
 	}
