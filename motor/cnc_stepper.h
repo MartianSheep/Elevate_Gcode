@@ -58,6 +58,7 @@ public:
 	/**************** Moving start ****************/
 		void step(int steps = 1){ // moving the motor by giving steps
 			disable();
+			now_pos += steps;
 
 			#ifdef DEBUG
 				Serial.print("CNC_Stepper: Step is called for ");
@@ -87,8 +88,6 @@ public:
 				digitalWrite(step_pin, LOW);
 				delay(period_per_step/2);
 			}
-
-			now_pos += steps;
 		}
 
 		void homing(){

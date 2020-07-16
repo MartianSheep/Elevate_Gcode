@@ -42,7 +42,7 @@
 		}
 
 		#ifdef DEBUG
-			Serial.println("Seperator ends.");
+			Serial.println("/*****Seperator ends*****/");
 		#endif
 	}
 /**************** Seperator end ****************/

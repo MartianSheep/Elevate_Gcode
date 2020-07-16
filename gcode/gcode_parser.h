@@ -64,7 +64,7 @@
 
 		#ifdef DEBUG
 			Serial.println("======Parsing Complete!======");
-			Serial.println("Parsed data: ");
+			Serial.print("Parsed data: ");
 			parsed_data.print();
 		#endif
 

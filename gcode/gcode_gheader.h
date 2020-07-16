@@ -14,8 +14,7 @@
 /**************** G-code Translator start ****************/
 	void G_Code_Translator(int num, vector<String> v){
 		#ifdef DEBUG
-			Serial.println("G_code_translator...");
-			Serial.print("code index:");
+			Serial.print("G_code_translator, code index: ");
 			Serial.println(num);
 		#endif
 

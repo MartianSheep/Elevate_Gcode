@@ -141,7 +141,7 @@ public:
 				Serial.print(", ");
 				Serial.print(_data_4);
 			}
-			Serial.print("]\n");
+			Serial.print(" ]\n");
 		#endif
 	}
 
