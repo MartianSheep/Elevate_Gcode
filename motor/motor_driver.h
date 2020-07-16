@@ -79,17 +79,13 @@
 		long Y_steps = next_Y - start_Y;
 
 		#ifdef DEBUG
-			Serial.print("X/X_Milis_Per_Step: ");
+			Serial.print("next_X = X/X_Milis_Per_Step: ");
 			Serial.println(X/X_Milis_Per_Step);
-			Serial.print("next_X: ");
-			Serial.println(next_X);
 			Serial.print("X_steps: ");
 			Serial.println(X_steps);
 
-			Serial.print("Y/Y_Milis_Per_Step: ");
+			Serial.print("next_Y = Y/Y_Milis_Per_Step: ");
 			Serial.println(Y/Y_Milis_Per_Step);
-			Serial.print("next_Y: ");
-			Serial.println(next_Y);
 			Serial.print("Y_steps: ");
 			Serial.println(Y_steps);
 		#endif
@@ -113,32 +109,6 @@
 		}
 
 		Y_Stepper.step(next_Y - Y_Stepper.get_pos());
-
-		// if(abs(X_steps)>=abs(Y_steps)){
-		// 	while(X_steps != 0){
-		// 		X_Stepper.step(X_one_step);
-		// 		X_steps -= X_one_step;
-		// 		int Y_should_go = (X_Stepper.get_pos()-start_X)*m - (Y_Stepper.get_pos()-start_Y);
-		// 		if(Y_should_go!=0){
-		// 			Y_Stepper.step(Y_should_go);
-		// 		}
-		// 	}
-
-		// 	Y_Stepper.step(next_Y - Y_Stepper.get_pos());
-		// }
-
-		// else{
-		// 	while(Y_steps != 0){
-		// 		Y_Stepper.step(Y_one_step);
-		// 		Y_steps -= Y_one_step;
-		// 		int X_should_go = (Y_Stepper.get_pos()-start_Y)*m - Y_Stepper.get_pos();
-		// 		if(X_should_go!=0){
-		// 			X_Stepper.step(X_should_go);
-		// 		}
-		// 	}
-
-		// 	X_Stepper.step(next_X - X_Stepper.get_pos());
-		// }
 
 		#ifdef DEBUG
 			Serial.println("End Move");
@@ -181,10 +151,10 @@
 	float Y_coordinate() { return (float)Y_Stepper.get_pos()*Y_Milis_Per_Step; }
 
 	void set_X_coordinate(float new_pos){
-		// TODO
+		X_Stepper.set_pos(new_pos/X_Milis_Per_Step);
 	}
 	void set_Y_coordinate(float new_pos){
-		// TODO
+		Y_Stepper.set_pos(new_pos/Y_Milis_Per_Step);
 	}
 	
 /**************** Coordinate end ****************/

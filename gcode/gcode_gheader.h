@@ -18,8 +18,8 @@
 			Serial.println(num);
 		#endif
 
-		float X;
-		float Y;
+		float X = X_coordinate();
+		float Y = Y_coordinate();
 		for (int i=0; i<v.size();i++){
 			String param = v[i];
 			char param_type = param.charAt(0);
@@ -70,7 +70,10 @@
 				break;
 			case 92:
 				// G92: set position and return now position;
-				// TODO: set position
+				if(X != X_coordinate())
+					set_X_coordinate(X);
+				if(Y != Y_coordinate())
+					set_Y_coordinate(Y);
 				Serial.print("Now Position: (");
 				Serial.print( X_coordinate() );
 				Serial.print(',');
