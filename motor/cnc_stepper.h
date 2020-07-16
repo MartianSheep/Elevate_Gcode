@@ -51,7 +51,7 @@ public:
 			endstop_pin = end_pin;
 			endstop_inverted = end_inv;
 
-			pinMode(endstop_pin, INPUT);
+			pinMode(endstop_pin, INPUT_PULLUP);
 		}
 	/**************** Settings end ****************/
 
