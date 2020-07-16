@@ -26,15 +26,11 @@
 			char param_type = param.charAt(0);
 			switch(param_type){
 				case 'X':
-//					Serial.println(param);
 					param = param.substring(1,param.length());
-//					Serial.println(param);
 					X = param.toFloat();
 					break;
 				case 'Y':
-//					Serial.println(param);
 					param = param.substring(1,param.length());
-//					Serial.println(param);
 					Y = param.toFloat();
 					break;
 				default:
