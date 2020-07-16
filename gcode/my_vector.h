@@ -22,10 +22,10 @@ class vector
 public:
 	vector() : _size(0) {
 		// super dirty
-		_data_1 = 0;
-		_data_2 = 0;
-		_data_3 = 0;
-		_data_4 = 0;
+		_data_1 = T();
+		_data_2 = T();
+		_data_3 = T();
+		_data_4 = T();
 	}
 	~vector() {};
 
