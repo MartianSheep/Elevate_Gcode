@@ -43,8 +43,8 @@
 	#define Y_Mili_Per_Revolution	3.2
 
 	// consider feedrate unit
-	#define X_Milis_Per_Second		20.0
-	#define Y_Milis_Per_Second		20.0
+	#define X_Milis_Per_Second		1.0
+	#define Y_Milis_Per_Second		1.0
 
 	#define X_Stepper_Invert		false
 	#define Y_Stepper_Invert		false
@@ -52,8 +52,6 @@
 
 /**************** Stepper Motor Advanced start ****************/
 	#define Stepper_Smallest_Step	1
-	#define Step_Delay_Time			0
-	#define	Line_Delay_Time			50
 
 	// X micro steps
 		#if (X_Stepper_MS1 && X_Stepper_MS2 && X_Stepper_MS3)
