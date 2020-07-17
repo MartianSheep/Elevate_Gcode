@@ -8,6 +8,7 @@
 **************************************************************************/
 
 #pragma once
+#include '../Timer/Timer.h'
 
 class CNC_Stepper
 {
@@ -36,6 +37,7 @@ public:
 			pinMode(direction_pin, OUTPUT);
 			pinMode(enable_pin, OUTPUT);
 
+			timer.oscillate(step_pin,period_per_step/2,HIGH);
 			// enable is false
 			disable();
 
@@ -83,10 +85,14 @@ public:
 			}
 
 			for(int i = 0; i < steps; ++i){
-				digitalWrite(step_pin, HIGH);
-				delay(period_per_step/2);
-				digitalWrite(step_pin, LOW);
-				delay(period_per_step/2);
+				//original
+				// digitalWrite(step_pin, HIGH);
+				// delay(period_per_step/2);
+				// digitalWrite(step_pin, LOW);
+				// delay(period_per_step/2);
+
+				//Timer Test
+				timer.update();
 			}
 		}
 
@@ -174,5 +180,6 @@ private:
 	// long			period_per_step;
 	float			period_per_step;
 	// the unit of period_per_step is microseconds
-	// but init puts miliseconds	
+	// but init puts miliseconds
+	Timer 			timer;	
 };
