@@ -39,11 +39,11 @@ public:
 			// enable is false
 			disable();
 
-			#ifdef DEBUG
-				Serial.print("CNC_Stepper: init period ");
-				Serial.print(period_per_step);
-				Serial.println(" ms.");
-			#endif
+			// #ifdef DEBUG
+			// 	Serial.print("CNC_Stepper: init period ");
+			// 	Serial.print(period_per_step);
+			// 	Serial.println(" ms.");
+			// #endif
 		}
 
 		void setEndstop(unsigned int end_pin, bool end_inv = false){
@@ -59,11 +59,11 @@ public:
 		void step(int steps = 1){ // moving the motor by giving steps
 			disable();
 
-			#ifdef DEBUG
-				Serial.print("CNC_Stepper: Step is called for ");
-				Serial.print(steps);
-				Serial.println(" steps");
-			#endif
+			// #ifdef DEBUG
+			// 	Serial.print("CNC_Stepper: Step is called for ");
+			// 	Serial.print(steps);
+			// 	Serial.println(" steps");
+			// #endif
 
 			// define when motor runs negative way, 
 			// direction_pin is HIGH
@@ -143,6 +143,10 @@ public:
 		}
 
 		bool get_enable() { return enabled; }
+
+		unsigned int get_step_pin(){ return step_pin; }
+		unsigned int get_direction_pin(){ return direction_pin; }
+		bool inverted_status(){ return inverted; }
 	/**************** Enable end ****************/
 
 private:

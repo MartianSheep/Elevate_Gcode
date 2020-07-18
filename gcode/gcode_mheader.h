@@ -9,7 +9,7 @@
 
 #pragma once
 #include "my_vector.h"
-#include "../motor/motor_driver.h"
+#include "../motor/motor_driver_second_edition.h"
 
 /**************** M-code Translator start ****************/
 	void M_Code_Translator(int num, vector<String> v){

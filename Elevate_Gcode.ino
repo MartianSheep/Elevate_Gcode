@@ -9,7 +9,7 @@
 
 #include "configuration.h"
 #include "gcode/gcode_headers.h"
-#include "motor/motor_driver.h"
+#include "motor/motor_driver_second_edition.h"
 
 void setup() {
 	Serial.begin(Baudrate);

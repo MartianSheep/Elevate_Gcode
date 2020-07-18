@@ -69,80 +69,120 @@
 		// 	Serial.println("Linear moving...");
 		// #endif
 		
-		long start_X = X_Stepper.get_pos();
-		long start_Y = Y_Stepper.get_pos();
+		int X_steps = X/X_Milis_Per_Step - X_Stepper.get_pos();
+		int Y_steps = Y/Y_Milis_Per_Step - Y_Stepper.get_pos();
 
-		long next_X = X/X_Milis_Per_Step;
-		long next_Y = Y/Y_Milis_Per_Step;
+		bool X_direction = (X_steps >= 0); //positive is true, negative is false
+		bool Y_direction = (Y_steps >= 0);
 
-		long X_steps = next_X - start_X;
-		long Y_steps = next_Y - start_Y;
+		char flag = ' ';//to decide which axis will rise
 
-		// #ifdef DEBUG
-		// 	Serial.print("X/X_Milis_Per_Step: ");
-		// 	Serial.println(X/X_Milis_Per_Step);
-		// 	Serial.print("next_X: ");
-		// 	Serial.println(next_X);
-		// 	Serial.print("X_steps: ");
-		// 	Serial.println(X_steps);
+		int TX = X_Stepper_Period;
+		int TY = Y_Stepper_Period;
 
-		// 	Serial.print("Y/Y_Milis_Per_Step: ");
-		// 	Serial.println(Y/Y_Milis_Per_Step);
-		// 	Serial.print("next_Y: ");
-		// 	Serial.println(next_Y);
-		// 	Serial.print("Y_steps: ");
-		// 	Serial.println(Y_steps);
-		// #endif
+		if(TX > TY) flag = 'Y';
+		else if(TX < TY) flag = 'X';
+		else flag = 'E';
+
+		float X_period;
+		float Y_period;
+
+		long total_time = 0;
+
+		if(abs(X_steps) > abs(Y_steps)){
+			total_time = abs(X_steps) * TX;
+			X_period = 20;
+			Y_period = (float)total_time/abs(Y_steps);
+		}
+		else {
+			total_time = abs(Y_steps) * TY;
+			Y_period = 20;
+			X_period = (float)total_time/abs(X_steps);
+		}
 		
-		float m = 0;
-		if(X_steps!=0) m = Y_steps/X_steps;
+		if(X_period > Y_period) flag = 'Y';
+		else if(X_period < Y_period) flag = 'X';
+		else flag = 'E';
 
-		// Stepper_Smallest_Step is "1" in configuration.h
-		int X_one_step = -Stepper_Smallest_Step;
-		if(X_steps > 0) X_one_step = Stepper_Smallest_Step;
-		int Y_one_step = -Stepper_Smallest_Step;
-		if(Y_steps > 0) Y_one_step = Stepper_Smallest_Step;
+		unsigned int total_steps = abs(X_steps) + abs(Y_steps);
+		unsigned int current_steps = 0;
+		
+		int tx = X_period;
+		int ty = Y_period;
 
-		while(X_steps != 0){
-			X_Stepper.step(X_one_step);
-			X_steps -= X_one_step;
-			int Y_should_go = (X_Stepper.get_pos()-start_X)*m - (Y_Stepper.get_pos()-start_Y);
-			if(Y_should_go!=0){
-				Y_Stepper.step(Y_should_go);
+		unsigned long last_rising = millis();
+
+		while(current_steps < total_steps){
+			if((int)(millis() - last_rising) < min(tx, ty)) continue;
+			else{
+
+				if(X_steps < 0){
+					if(X_Stepper.inverted_status())
+						digitalWrite(X_Stepper.get_direction_pin(), LOW);
+					else
+						digitalWrite(X_Stepper.get_direction_pin(), HIGH);
+				}
+				else{
+					if(X_Stepper.inverted_status())
+						digitalWrite(X_Stepper.get_direction_pin(), HIGH);
+					else
+						digitalWrite(X_Stepper.get_direction_pin(), LOW);
+				}
+
+				if(Y_steps < 0){
+					if(Y_Stepper.inverted_status())
+						digitalWrite(Y_Stepper.get_direction_pin(), LOW);
+					else
+						digitalWrite(Y_Stepper.get_direction_pin(), HIGH);
+				}
+				else{
+					if(Y_Stepper.inverted_status())
+						digitalWrite(Y_Stepper.get_direction_pin(), HIGH);
+					else
+						digitalWrite(Y_Stepper.get_direction_pin(), LOW);
+				}
+				
+				switch (flag){
+				case 'X':
+					digitalWrite(X_Stepper.get_step_pin(), LOW);
+
+					
+					delayMicroseconds(3);
+
+					digitalWrite(X_Stepper.get_step_pin(), HIGH);
+					++current_steps;
+					ty -= tx;
+					tx = X_period;
+					if(tx>ty) flag = 'Y';
+					break;
+				
+				case 'Y':
+					digitalWrite(Y_Stepper.get_step_pin(), LOW);
+
+					delayMicroseconds(3);
+
+					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
+					++current_steps;
+					tx -= ty;
+					ty = Y_period;
+					if(tx<ty) flag = 'X';
+					break;
+				
+				case 'E':
+					digitalWrite(X_Stepper.get_step_pin(), LOW);
+					digitalWrite(Y_Stepper.get_step_pin(), LOW);
+					delayMicroseconds(3);
+					digitalWrite(X_Stepper.get_step_pin(), HIGH);
+					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
+					current_steps += 2;
+					break;
+
+				default:
+					break;
+				}
 			}
 		}
 
-		Y_Stepper.step(next_Y - Y_Stepper.get_pos());
-
-		// if(abs(X_steps)>=abs(Y_steps)){
-		// 	while(X_steps != 0){
-		// 		X_Stepper.step(X_one_step);
-		// 		X_steps -= X_one_step;
-		// 		int Y_should_go = (X_Stepper.get_pos()-start_X)*m - (Y_Stepper.get_pos()-start_Y);
-		// 		if(Y_should_go!=0){
-		// 			Y_Stepper.step(Y_should_go);
-		// 		}
-		// 	}
-
-		// 	Y_Stepper.step(next_Y - Y_Stepper.get_pos());
-		// }
-
-		// else{
-		// 	while(Y_steps != 0){
-		// 		Y_Stepper.step(Y_one_step);
-		// 		Y_steps -= Y_one_step;
-		// 		int X_should_go = (Y_Stepper.get_pos()-start_Y)*m - Y_Stepper.get_pos();
-		// 		if(X_should_go!=0){
-		// 			X_Stepper.step(X_should_go);
-		// 		}
-		// 	}
-
-		// 	X_Stepper.step(next_X - X_Stepper.get_pos());
-		// }
-
-		// #ifdef DEBUG
-		// 	Serial.println("End Move");
-		// #endif
 	}
 
 	//	Not going to implement in this version
