@@ -43,8 +43,8 @@
 	#define Y_Mili_Per_Revolution	3.2
 
 	// consider feedrate unit
-	#define X_Milis_Per_Second		10.0
-	#define Y_Milis_Per_Second		10.0
+	#define X_Milis_Per_Second		20.0
+	#define Y_Milis_Per_Second		20.0
 
 	#define X_Stepper_Invert		false
 	#define Y_Stepper_Invert		false

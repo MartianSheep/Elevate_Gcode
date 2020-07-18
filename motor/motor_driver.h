@@ -172,6 +172,8 @@
 
 					digitalWrite(X_Stepper.get_step_pin(), HIGH);
 
+					last_rising = millis();
+
 					Serial.println("X moving");
 
 					++current_steps;
@@ -189,6 +191,8 @@
 
 					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
 
+					last_rising = millis();
+
 					Serial.println("Y moving");
 
 					++current_steps;
@@ -205,6 +209,9 @@
 					delayMicroseconds(3);
 					digitalWrite(X_Stepper.get_step_pin(), HIGH);
 					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
+
+					last_rising = millis();
+
 					current_steps += 2;
 					X_Stepper.new_pos(X_steps/abs(X_steps));
 					Y_Stepper.new_pos(Y_steps/abs(Y_steps));
