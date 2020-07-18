@@ -9,32 +9,27 @@
 
 #pragma once
 #include "my_vector.h"
-#include "../motor/motor_driver_second_edition.h"
+#include "../motor/motor_driver.h"
 
 /**************** G-code Translator start ****************/
 	void G_Code_Translator(int num, vector<String> v){
 		#ifdef DEBUG
-			Serial.println("G_code_translator...");
-			Serial.print("code index:");
+			Serial.print("G_code_translator, code index: ");
 			Serial.println(num);
 		#endif
 
-		float X;
-		float Y;
+		float X = X_coordinate();
+		float Y = Y_coordinate();
 		for (int i=0; i<v.size();i++){
 			String param = v[i];
 			char param_type = param.charAt(0);
 			switch(param_type){
 				case 'X':
-//					Serial.println(param);
 					param = param.substring(1,param.length());
-//					Serial.println(param);
 					X = param.toFloat();
 					break;
 				case 'Y':
-//					Serial.println(param);
 					param = param.substring(1,param.length());
-//					Serial.println(param);
 					Y = param.toFloat();
 					break;
 				default:
@@ -75,7 +70,10 @@
 				break;
 			case 92:
 				// G92: set position and return now position;
-				// TODO: set position
+				if(X != X_coordinate())
+					set_X_coordinate(X);
+				if(Y != Y_coordinate())
+					set_Y_coordinate(Y);
 				Serial.print("Now Position: (");
 				Serial.print( X_coordinate() );
 				Serial.print(',');

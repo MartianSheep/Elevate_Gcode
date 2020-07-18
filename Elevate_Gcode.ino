@@ -9,7 +9,7 @@
 
 #include "configuration.h"
 #include "gcode/gcode_headers.h"
-#include "motor/motor_driver_second_edition.h"
+#include "motor/motor_driver.h"
 
 void setup() {
 	Serial.begin(Baudrate);
@@ -23,6 +23,7 @@ void setup() {
 }
 
 String cmd = "";
+vector<String> params;
 
 void loop() {
 	if(Serial.available()){
@@ -34,7 +35,7 @@ void loop() {
 			Move_Pen(true);
 
 		else if (cmd!=""){
-			vector<String> params = Gcode_Parser(cmd); // parse and return params
+			params = Gcode_Parser(cmd); // parse and return params
 			Seperator(params); // seperate to G/M translator => motor driving 
 		}
 	}

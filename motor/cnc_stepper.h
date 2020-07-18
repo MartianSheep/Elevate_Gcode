@@ -8,6 +8,7 @@
 **************************************************************************/
 
 #pragma once
+//#include "../Timer/Timer.h"
 
 class CNC_Stepper
 {
@@ -36,6 +37,7 @@ public:
 			pinMode(direction_pin, OUTPUT);
 			pinMode(enable_pin, OUTPUT);
 
+			//timer.oscillate(step_pin,period_per_step/2,HIGH);
 			// enable is false
 			disable();
 
@@ -51,13 +53,14 @@ public:
 			endstop_pin = end_pin;
 			endstop_inverted = end_inv;
 
-			pinMode(endstop_pin, INPUT);
+			pinMode(endstop_pin, INPUT_PULLUP);
 		}
 	/**************** Settings end ****************/
 
 	/**************** Moving start ****************/
 		void step(int steps = 1){ // moving the motor by giving steps
 			disable();
+			now_pos += steps;
 
 			// #ifdef DEBUG
 			// 	Serial.print("CNC_Stepper: Step is called for ");
@@ -82,13 +85,15 @@ public:
 			}
 
 			for(int i = 0; i < steps; ++i){
-				digitalWrite(step_pin, HIGH);
-				delay(period_per_step/2);
-				digitalWrite(step_pin, LOW);
-				delay(period_per_step/2);
-			}
+				//original
+				// digitalWrite(step_pin, HIGH);
+				// delay(period_per_step/2);
+				// digitalWrite(step_pin, LOW);
+				// delay(period_per_step/2);
 
-			now_pos += steps;
+				//Timer Test
+				//timer.update();
+			}
 		}
 
 		void homing(){
@@ -147,6 +152,7 @@ public:
 		unsigned int get_step_pin(){ return step_pin; }
 		unsigned int get_direction_pin(){ return direction_pin; }
 		bool inverted_status(){ return inverted; }
+		void new_pos(int x){ now_pos += x; }
 	/**************** Enable end ****************/
 
 private:
@@ -179,5 +185,6 @@ private:
 	// long			period_per_step;
 	float			period_per_step;
 	// the unit of period_per_step is microseconds
-	// but init puts miliseconds	
+	// but init puts miliseconds
+	//Timer 			timer;	
 };
