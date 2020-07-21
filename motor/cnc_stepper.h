@@ -92,7 +92,7 @@ public:
 				Serial.println("CNC_Stepper: homing called...");
 			#endif
 
-			digitalWrite(direction_pin, LOW);
+			digitalWrite(direction_pin, HIGH);
 
 			while(get_endstop() == endstop_inverted){
 				// step(small_step);

@@ -89,8 +89,8 @@
 
 		char flag = ' ';//to decide which axis will rise
 
-		int TX = X_Stepper_Period;
-		int TY = Y_Stepper_Period;
+		float TX = X_Stepper_Period;
+		float TY = Y_Stepper_Period;
 
 		float X_period=30000;
 		float Y_period=30000;
@@ -117,8 +117,8 @@
 		unsigned int total_steps = abs(X_steps) + abs(Y_steps);
 		unsigned int current_steps = 0;
 		
-		int tx = X_period;
-		int ty = Y_period;
+		float tx = X_period;
+		float ty = Y_period;
 
 		Serial.print("X_period: ");
 		Serial.print(X_period);
@@ -168,6 +168,8 @@
 
 					digitalWrite(X_Stepper.get_step_pin(), HIGH);
 
+					Serial.println("X");
+
 					last_rising = millis();
 
 					++current_steps;
@@ -175,7 +177,7 @@
 					ty -= tx;
 					tx = X_period;
 					if(tx>ty) flag = 'Y';
-					else if(tx == ty) flag = 'E';
+					// else if(tx == ty) flag = 'E';
 					break;
 				
 				case 'Y':
@@ -185,6 +187,8 @@
 
 					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
 
+					Serial.println("Y");
+
 					last_rising = millis();
 
 
@@ -193,7 +197,7 @@
 					tx -= ty;
 					ty = Y_period;
 					if(tx<ty) flag = 'X';
-					else if(tx == ty) flag = 'E';
+					// else if(tx == ty) flag = 'E';
 					break;
 				
 				case 'E':
@@ -203,14 +207,16 @@
 					digitalWrite(X_Stepper.get_step_pin(), HIGH);
 					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
 
+					Serial.println("E");
+
 					last_rising = millis();
 
 					current_steps += 2;
 
-					tx = X_period;
-					ty = Y_period;
-					if(tx > ty) flag = 'Y';
-					else if (tx < ty) flag = 'X';
+					// tx = X_period;
+					// ty = Y_period;
+					// if(tx > ty) flag = 'Y';
+					// else if (tx < ty) flag = 'X';
 
 					//X_Stepper.new_pos(X_steps/abs(X_steps));
 					//Y_Stepper.new_pos(Y_steps/abs(Y_steps));

@@ -39,15 +39,15 @@
 	#define X_Steps_Per_Rev_Origin	20
 	// please insert the original offset
 	#define Y_Steps_Per_Rev_Origin	20
-	#define X_Mili_Per_Revolution	3.2
-	#define Y_Mili_Per_Revolution	3.2
+	#define X_Mili_Per_Revolution	1.6
+	#define Y_Mili_Per_Revolution	1.6
 
 	// consider feedrate unit
 	#define X_Milis_Per_Second		20.0
 	#define Y_Milis_Per_Second		20.0
 
-	#define X_Stepper_Invert		false
-	#define Y_Stepper_Invert		false
+	#define X_Stepper_Invert		true
+	#define Y_Stepper_Invert		true
 /**************** Stepper Motor end ****************/
 
 /**************** Stepper Motor Advanced start ****************/
