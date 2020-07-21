@@ -185,6 +185,7 @@
 					ty -= tx;
 					tx = X_period;
 					if(tx>ty) flag = 'Y';
+					else if(tx == ty) flag = 'E';
 					break;
 				
 				case 'Y':
@@ -206,6 +207,7 @@
 					tx -= ty;
 					ty = Y_period;
 					if(tx<ty) flag = 'X';
+					else if(tx == ty) flag = 'E';
 					break;
 				
 				case 'E':
@@ -218,6 +220,12 @@
 					last_rising = millis();
 
 					current_steps += 2;
+
+					tx = X_period;
+					ty = Y_period;
+					if(tx > ty) flag = 'Y';
+					else if (tx < ty) flag = 'X';
+
 					//X_Stepper.new_pos(X_steps/abs(X_steps));
 					//Y_Stepper.new_pos(Y_steps/abs(Y_steps));
 
