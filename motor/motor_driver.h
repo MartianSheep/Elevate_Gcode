@@ -128,13 +128,10 @@
 		unsigned long last_rising = millis();
 
 		while(current_steps < total_steps){
-			// Serial.println("IN THE　LOOP");
 			if((int)(millis() - last_rising) < min(tx, ty)) {
-				// Serial.print("millis()-last_rising: ");
-				// Serial.print((int)(millis()-last_rising));
-				// Serial.print("\tmin(tx, ty)");
-				// Serial.println(min(tx, ty));
+
 				continue;
+
 			}
 			else{
 				if(X_steps > 0){
@@ -167,20 +164,13 @@
 				case 'X':
 					digitalWrite(X_Stepper.get_step_pin(), LOW);
 
-					
 					delayMicroseconds(1000);
 
 					digitalWrite(X_Stepper.get_step_pin(), HIGH);
 
-					// Serial.println("X_Moving");
-					
-
 					last_rising = millis();
 
-					//delayMicroseconds(800);
-
 					++current_steps;
-					//X_Stepper.new_pos(X_steps/abs(X_steps));
 
 					ty -= tx;
 					tx = X_period;
@@ -192,16 +182,12 @@
 
 					delayMicroseconds(1000);
 
-					// Serial.println("Y_Moving");
-
 					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
 
 					last_rising = millis();
 
-					//delayMicroseconds(800);
 
 					++current_steps;
-					//Y_Stepper.new_pos(Y_steps/abs(Y_steps));
 
 					tx -= ty;
 					ty = Y_period;
@@ -218,8 +204,6 @@
 					last_rising = millis();
 
 					current_steps += 2;
-					//X_Stepper.new_pos(X_steps/abs(X_steps));
-					//Y_Stepper.new_pos(Y_steps/abs(Y_steps));
 
 					break;
 
@@ -236,15 +220,6 @@
 		Serial.println(Y_Stepper.get_pos());
 		Serial.println("End Moving");
 	}
-
-	//	Not going to implement in this version
-	//	void Move_Stepper_Circular_R(bool dir, float X, float Y, float R){
-	//		// TODO
-	//	}
-	//
-	//	void Move_Stepper_Circular_IJ(bool dir, float X, float Y, float I, float J){
-	//		// TODO
-	//	}
 /**************** Stepper Moving end ****************/
 
 /**************** Stepper Enable start ****************/
@@ -281,9 +256,3 @@
 	
 /**************** Coordinate end ****************/
 
-/**************** Kill / Halt start ****************/
-	// TODO
-	// Not going to implement in this version
-	// Please directly shut down the machine
-	// to kill the system
-/**************** Kill / Halt end ****************/

@@ -37,15 +37,7 @@ public:
 			pinMode(direction_pin, OUTPUT);
 			pinMode(enable_pin, OUTPUT);
 
-			//timer.oscillate(step_pin,period_per_step/2,HIGH);
-			// enable is false
 			disable();
-
-			// #ifdef DEBUG
-			// 	Serial.print("CNC_Stepper: init period ");
-			// 	Serial.print(period_per_step);
-			// 	Serial.println(" ms.");
-			// #endif
 		}
 
 		void setEndstop(unsigned int end_pin, bool end_inv = false){
@@ -58,43 +50,37 @@ public:
 	/**************** Settings end ****************/
 
 	/**************** Moving start ****************/
-		void step(int steps = 1){ // moving the motor by giving steps
-			disable();
-			now_pos += steps;
+		// Abandoned
+		
+		// void step(int steps = 1){ // moving the motor by giving steps
+		// 	disable();
+		// 	now_pos += steps;
 
-			// #ifdef DEBUG
-			// 	Serial.print("CNC_Stepper: Step is called for ");
-			// 	Serial.print(steps);
-			// 	Serial.println(" steps");
-			// #endif
+		// 	if(steps < 0){
+		// 		steps = -steps;
+		// 		if(inverted)
+		// 			digitalWrite(direction_pin, LOW);
+		// 		else
+		// 			digitalWrite(direction_pin, HIGH);
+		// 	}
+		// 	else{
+		// 		if(inverted)
+		// 			digitalWrite(direction_pin, HIGH);
+		// 		else
+		// 			digitalWrite(direction_pin, LOW);
+		// 	}
 
-			// define when motor runs negative way, 
-			// direction_pin is HIGH
-			if(steps < 0){
-				steps = -steps;
-				if(inverted)
-					digitalWrite(direction_pin, LOW);
-				else
-					digitalWrite(direction_pin, HIGH);
-			}
-			else{
-				if(inverted)
-					digitalWrite(direction_pin, HIGH);
-				else
-					digitalWrite(direction_pin, LOW);
-			}
+		// 	for(int i = 0; i < steps; ++i){
+		// 		//original
+		// 		// digitalWrite(step_pin, HIGH);
+		// 		// delay(period_per_step/2);
+		// 		// digitalWrite(step_pin, LOW);
+		// 		// delay(period_per_step/2);
 
-			for(int i = 0; i < steps; ++i){
-				//original
-				// digitalWrite(step_pin, HIGH);
-				// delay(period_per_step/2);
-				// digitalWrite(step_pin, LOW);
-				// delay(period_per_step/2);
-
-				//Timer Test
-				//timer.update();
-			}
-		}
+		// 		//Timer Test
+		// 		//timer.update();
+		// 	}
+		// }
 
 		void homing(){
 			// keep going on one single direction until hit endstop
