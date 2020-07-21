@@ -94,12 +94,12 @@
 
 /**************** Endstops start ****************/
 	#define X_Endstop_Pin			10
-	#define X_Endstop_Invert		true
+	#define X_Endstop_Invert		false
 	// endstop_invert: if false,
 	// this means that endstop returns false while NOT touched
 
-	#define Y_Endstop_Pin			10
-	#define Y_Endstop_Invert		true
+	#define Y_Endstop_Pin			11
+	#define Y_Endstop_Invert		false
 	// endstop_invert: if false,
 	// this means that endstop returns false while NOT touched
 /**************** Endstops end ****************/

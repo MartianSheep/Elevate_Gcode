@@ -36,11 +36,11 @@
 	}
 
 	void Pen_Degree(int degree){
-		/*#ifdef DEBUG
+		#ifdef DEBUG
 			Serial.print("Servo: moving to ");
 			Serial.print(degree);
 			Serial.println(" degree.");
-		#endif*/
+		#endif
 
 		Pen_Servo.write(degree);
 		delay(Pen_Delay_Time);
@@ -128,16 +128,16 @@
 		unsigned long last_rising = millis();
 
 		while(current_steps < total_steps){
-			Serial.println("IN THE LOOP");
+			// Serial.println("IN THE　LOOP");
 			if((int)(millis() - last_rising) < min(tx, ty)) {
-				Serial.print("millis()-last_rising: ");
-				Serial.print((int)(millis()-last_rising));
-				Serial.print("\tmin(tx, ty)");
-				Serial.println(min(tx, ty));
+				// Serial.print("millis()-last_rising: ");
+				// Serial.print((int)(millis()-last_rising));
+				// Serial.print("\tmin(tx, ty)");
+				// Serial.println(min(tx, ty));
 				continue;
 			}
 			else{
-				if(X_steps < 0){
+				if(X_steps > 0){
 					if(X_Stepper.inverted_status())
 						digitalWrite(X_Stepper.get_direction_pin(), LOW);
 					else
@@ -150,7 +150,7 @@
 						digitalWrite(X_Stepper.get_direction_pin(), LOW);
 				}
 
-				if(Y_steps < 0){
+				if(Y_steps > 0){
 					if(Y_Stepper.inverted_status())
 						digitalWrite(Y_Stepper.get_direction_pin(), LOW);
 					else
@@ -168,16 +168,19 @@
 					digitalWrite(X_Stepper.get_step_pin(), LOW);
 
 					
-					delayMicroseconds(3);
+					delayMicroseconds(1000);
 
 					digitalWrite(X_Stepper.get_step_pin(), HIGH);
 
+					// Serial.println("X_Moving");
+					
+
 					last_rising = millis();
 
-					Serial.println("X moving");
+					//delayMicroseconds(800);
 
 					++current_steps;
-					X_Stepper.new_pos(X_steps/abs(X_steps));
+					//X_Stepper.new_pos(X_steps/abs(X_steps));
 
 					ty -= tx;
 					tx = X_period;
@@ -187,16 +190,18 @@
 				case 'Y':
 					digitalWrite(Y_Stepper.get_step_pin(), LOW);
 
-					delayMicroseconds(3);
+					delayMicroseconds(1000);
+
+					// Serial.println("Y_Moving");
 
 					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
 
 					last_rising = millis();
 
-					Serial.println("Y moving");
+					//delayMicroseconds(800);
 
 					++current_steps;
-					Y_Stepper.new_pos(Y_steps/abs(Y_steps));
+					//Y_Stepper.new_pos(Y_steps/abs(Y_steps));
 
 					tx -= ty;
 					ty = Y_period;
@@ -206,15 +211,15 @@
 				case 'E':
 					digitalWrite(X_Stepper.get_step_pin(), LOW);
 					digitalWrite(Y_Stepper.get_step_pin(), LOW);
-					delayMicroseconds(3);
+					delayMicroseconds(1000);
 					digitalWrite(X_Stepper.get_step_pin(), HIGH);
 					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
 
 					last_rising = millis();
 
 					current_steps += 2;
-					X_Stepper.new_pos(X_steps/abs(X_steps));
-					Y_Stepper.new_pos(Y_steps/abs(Y_steps));
+					//X_Stepper.new_pos(X_steps/abs(X_steps));
+					//Y_Stepper.new_pos(Y_steps/abs(Y_steps));
 
 					break;
 
@@ -223,7 +228,8 @@
 				}
 			}
 		}
-
+		X_Stepper.new_pos(X_steps);
+		Y_Stepper.new_pos(Y_steps);
 		Serial.print("X_Stepper.get_pos(): ");
 		Serial.print(X_Stepper.get_pos());
 		Serial.print("\tY_Stepper.get_pos(): ");

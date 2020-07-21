@@ -29,14 +29,18 @@ void loop() {
 	if(Serial.available()){
 		cmd = Serial.readStringUntil('\n'); // read in command
 		// temperary dirty code
-		if(cmd == "U")
+		if(cmd == "U"){
 			Move_Pen(false);
-		else if(cmd == "D")
+      Serial.write("complete\n");
+		}
+		else if(cmd == "D"){
 			Move_Pen(true);
-
+      Serial.write("complete\n");
+		}
 		else if (cmd!=""){
 			params = Gcode_Parser(cmd); // parse and return params
 			Seperator(params); // seperate to G/M translator => motor driving 
+      Serial.write("complete\n");
 		}
 	}
 }
