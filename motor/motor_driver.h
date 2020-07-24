@@ -41,7 +41,6 @@
 			Serial.print(degree);
 			Serial.println(" degree.");
 		#endif
-
 		Pen_Servo.write(degree);
 		delay(Pen_Delay_Time);
 	}
@@ -64,6 +63,60 @@
 /**************** Servo end ****************/
 
 /**************** Stepper Moving start ****************/
+	void Move_to(float X, float Y){
+		int X_steps = X/X_Milis_Per_Step - X_Stepper.get_pos();
+		int Y_steps = Y/Y_Milis_Per_Step - Y_Stepper.get_pos();
+
+		if(X_steps > 0){
+			if(X_Stepper.inverted_status())
+				digitalWrite(X_Stepper.get_direction_pin(), LOW);
+			else
+				digitalWrite(X_Stepper.get_direction_pin(), HIGH);
+		}
+		else{
+			if(X_Stepper.inverted_status())
+				digitalWrite(X_Stepper.get_direction_pin(), HIGH);
+			else
+				digitalWrite(X_Stepper.get_direction_pin(), LOW);
+		}
+
+		X_steps = abs(X_steps);
+		Y_steps = abs(Y_steps);
+
+		while(X_steps > 0){
+			digitalWrite(X_Stepper.get_step_pin(), LOW);
+
+			delayMicroseconds(300);
+
+			digitalWrite(X_Stepper.get_step_pin(), HIGH);
+
+			--X_steps;
+		}
+
+		if(Y_steps > 0){
+			if(Y_Stepper.inverted_status())
+				digitalWrite(Y_Stepper.get_direction_pin(), LOW);
+			else
+				digitalWrite(Y_Stepper.get_direction_pin(), HIGH);
+		}
+		else{
+			if(Y_Stepper.inverted_status())
+				digitalWrite(Y_Stepper.get_direction_pin(), HIGH);
+			else
+				digitalWrite(Y_Stepper.get_direction_pin(), LOW);
+		}
+
+		while(Y_steps > 0){
+			digitalWrite(Y_Stepper.get_step_pin(), LOW);
+
+			delayMicroseconds(300);
+
+			digitalWrite(Y_Stepper.get_step_pin(), HIGH);
+
+			--Y_steps;
+		}
+	}
+
 	void Move_Stepper_Linear(float X, float Y){
 		// #ifdef DEBUG
 		// 	Serial.println("Linear moving...");
@@ -164,11 +217,11 @@
 				case 'X':
 					digitalWrite(X_Stepper.get_step_pin(), LOW);
 
-					delayMicroseconds(1000);
+					delayMicroseconds(50);
 
 					digitalWrite(X_Stepper.get_step_pin(), HIGH);
 
-					Serial.println("X");
+					//Serial.println("X");
 
 					last_rising = millis();
 
@@ -183,11 +236,11 @@
 				case 'Y':
 					digitalWrite(Y_Stepper.get_step_pin(), LOW);
 
-					delayMicroseconds(1000);
+					delayMicroseconds(50);
 
 					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
 
-					Serial.println("Y");
+					//Serial.println("Y");
 
 					last_rising = millis();
 
@@ -203,11 +256,11 @@
 				case 'E':
 					digitalWrite(X_Stepper.get_step_pin(), LOW);
 					digitalWrite(Y_Stepper.get_step_pin(), LOW);
-					delayMicroseconds(1000);
+					delayMicroseconds(50);
 					digitalWrite(X_Stepper.get_step_pin(), HIGH);
 					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
 
-					Serial.println("E");
+					//Serial.println("E");
 
 					last_rising = millis();
 

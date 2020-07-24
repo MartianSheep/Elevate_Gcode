@@ -56,7 +56,7 @@
 			case 0:
 				// G0: Linear move without extrusion(but we don't have that at first)
 				//     so I think it's a seperator between each curve;
-				Move_Stepper_Linear(X,Y); 
+				Move_to(X, Y);
 				break;
 			case 1:
 				// G1: Linear move with extrusion, which would really draw a line;
@@ -91,8 +91,8 @@
 		}
 		return;
 	}
-/**************** G-code Translator end ****************/
-/**************** M-code Translator start ****************/
+	/**************** G-code Translator end ****************/
+	/**************** M-code Translator start ****************/
 	void M_Code_Translator(int num, vector<String> v){
 		#ifdef DEBUG
 			Serial.println("M_code_translator...");

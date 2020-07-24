@@ -97,7 +97,7 @@ public:
 			while(get_endstop() == endstop_inverted){
 				// step(small_step);
 				digitalWrite(step_pin, LOW);
-				delayMicroseconds(500);
+				delayMicroseconds(100);
 				digitalWrite(step_pin, HIGH);
 			}
 
