@@ -26,23 +26,43 @@
 						Y_Stepper_Enable_Pin);
 
 	Servo Pen_Servo;
+
+	int degree;
 /**************** Macro Definitions of Motors end ****************/
 
 /**************** Servo start ****************/
 	void Pen_init(unsigned int pin){
 		Pen_Servo.attach(pin);
 		Pen_Servo.write(Servo_Pen_Up_Angle);
+		degree = Servo_Pen_Up_Angle;
 		delay(Pen_Delay_Time);
 	}
 
-	void Pen_Degree(int degree){
-		#ifdef DEBUG
-			Serial.print("Servo: moving to ");
-			Serial.print(degree);
-			Serial.println(" degree.");
-		#endif
-		Pen_Servo.write(degree);
-		delay(Pen_Delay_Time);
+	void Pen_Degree(int next_degree){
+		// #ifdef DEBUG
+		// 	Serial.print("Servo: moving to ");
+		// 	Serial.print(degree);
+		// 	Serial.println(" degree.");
+		// #endif
+		// Pen_Servo.write(degree);
+		// delay(Pen_Delay_Time);
+		int degree_diff = next_degree - degree;
+		if(degree_diff>0){
+			for (int i = 0; i<degree_diff;i++){
+				Serial.println("Degree Increasing!");
+				Pen_Servo.write(degree+i);
+				delay(50);
+			}
+
+		}else{
+			for (int i = 0; i>degree_diff;i--){
+				Serial.println("Degree Decreasing!");
+				Pen_Servo.write(degree+i);
+				delay(50);
+			}
+		}
+		degree = next_degree;
+		
 	}
 
 	void Move_Pen(bool down){
@@ -80,6 +100,19 @@
 				digitalWrite(X_Stepper.get_direction_pin(), LOW);
 		}
 
+		if(Y_steps > 0){
+			if(Y_Stepper.inverted_status())
+				digitalWrite(Y_Stepper.get_direction_pin(), LOW);
+			else
+				digitalWrite(Y_Stepper.get_direction_pin(), HIGH);
+		}
+		else{
+			if(Y_Stepper.inverted_status())
+				digitalWrite(Y_Stepper.get_direction_pin(), HIGH);
+			else
+				digitalWrite(Y_Stepper.get_direction_pin(), LOW);
+		}
+
 		X_steps = abs(X_steps);
 		Y_steps = abs(Y_steps);
 
@@ -93,18 +126,7 @@
 			--X_steps;
 		}
 
-		if(Y_steps > 0){
-			if(Y_Stepper.inverted_status())
-				digitalWrite(Y_Stepper.get_direction_pin(), LOW);
-			else
-				digitalWrite(Y_Stepper.get_direction_pin(), HIGH);
-		}
-		else{
-			if(Y_Stepper.inverted_status())
-				digitalWrite(Y_Stepper.get_direction_pin(), HIGH);
-			else
-				digitalWrite(Y_Stepper.get_direction_pin(), LOW);
-		}
+		
 
 		while(Y_steps > 0){
 			digitalWrite(Y_Stepper.get_step_pin(), LOW);
@@ -122,20 +144,20 @@
 		// 	Serial.println("Linear moving...");
 		// #endif
 		
-		Serial.println("Linear moving");
+		// Serial.println("Linear moving");
 
-		Serial.print("X_Stepper.get_pos(): ");
-		Serial.print(X_Stepper.get_pos());
-		Serial.print("\tY_Stepper.get_pos(): ");
-		Serial.println(Y_Stepper.get_pos());
+		// Serial.print("X_Stepper.get_pos(): ");
+		// Serial.print(X_Stepper.get_pos());
+		// Serial.print("\tY_Stepper.get_pos(): ");
+		// Serial.println(Y_Stepper.get_pos());
 
 		int X_steps = X/X_Milis_Per_Step - X_Stepper.get_pos();
 		int Y_steps = Y/Y_Milis_Per_Step - Y_Stepper.get_pos();
 
-		Serial.print("X_Steps: ");
-		Serial.print(X_steps);
-		Serial.print("\t Y_steps: ");
-		Serial.println(Y_steps);
+		// Serial.print("X_Steps: ");
+		// Serial.print(X_steps);
+		// Serial.print("\t Y_steps: ");
+		// Serial.println(Y_steps);
 
 		bool X_direction = (X_steps >= 0); //positive is true, negative is false
 		bool Y_direction = (Y_steps >= 0);
@@ -173,10 +195,10 @@
 		float tx = X_period;
 		float ty = Y_period;
 
-		Serial.print("X_period: ");
-		Serial.print(X_period);
-		Serial.print("\tY_period: ");
-		Serial.println(Y_period);
+		// Serial.print("X_period: ");
+		// Serial.print(X_period);
+		// Serial.print("\tY_period: ");
+		// Serial.println(Y_period);
 
 		unsigned long last_rising = millis();
 
@@ -283,11 +305,11 @@
 		}
 		X_Stepper.new_pos(X_steps);
 		Y_Stepper.new_pos(Y_steps);
-		Serial.print("X_Stepper.get_pos(): ");
-		Serial.print(X_Stepper.get_pos());
-		Serial.print("\tY_Stepper.get_pos(): ");
-		Serial.println(Y_Stepper.get_pos());
-		Serial.println("End Moving");
+		// Serial.print("X_Stepper.get_pos(): ");
+		// Serial.print(X_Stepper.get_pos());
+		// Serial.print("\tY_Stepper.get_pos(): ");
+		// Serial.println(Y_Stepper.get_pos());
+		// Serial.println("End Moving");
 	}
 /**************** Stepper Moving end ****************/
 

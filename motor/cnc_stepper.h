@@ -37,7 +37,7 @@ public:
 			pinMode(direction_pin, OUTPUT);
 			pinMode(enable_pin, OUTPUT);
 
-			disable();
+			enable();
 		}
 
 		void setEndstop(unsigned int end_pin, bool end_inv = false){
@@ -97,7 +97,7 @@ public:
 			while(get_endstop() == endstop_inverted){
 				// step(small_step);
 				digitalWrite(step_pin, LOW);
-				delayMicroseconds(100);
+				delayMicroseconds(300);
 				digitalWrite(step_pin, HIGH);
 			}
 
