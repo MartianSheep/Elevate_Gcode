@@ -12,29 +12,36 @@
 #include "gcode_parser.h"
 #include "my_vector.h"
 #include "../motor/motor_driver.h"
-// #include "gcode_gheader.h"
-// #include "gcode_mheader.h"
 
 /**************** G-code Translator start ****************/
-	void G_Code_Translator(int num, vector<String> v){
+	void G_Code_Translator(int gcode_index, vector<vector<char>> v){
 		#ifdef DEBUG
 			Serial.print("G_code_translator, code index: ");
-			Serial.println(num);
+			Serial.println(gcode_index);
 		#endif
 
 		float X = X_coordinate();
 		float Y = Y_coordinate();
+
 		for (int i=0; i<v.size();i++){
-			String param = v[i];
-			char param_type = param.charAt(0);
+			vector<char> param = v[i]; //param_type+param_num(X or Y)
+			char param_type = param[0]; 
+
+
+			//generate param_num
+			String param_num_string = "";
+			for (int i = 1; i < param.size(); i++){
+				param_num_string += param[i];
+			}
+
 			switch(param_type){
 				case 'X':
-					param = param.substring(1,param.length());
-					X = param.toFloat();
+					// param = param.substring(1,param.length());
+					X = param_num_string.toFloat();
 					break;
 				case 'Y':
-					param = param.substring(1,param.length());
-					Y = param.toFloat();
+					// param = param.substring(1,param.length());
+					Y = param_num_string.toFloat();
 					break;
 				default:
 					Serial.println("Gcode Translator: ");
@@ -52,7 +59,7 @@
 			Serial.println();
 		#endif
 
-		switch(num){
+		switch(gcode_index){
 			case 0:
 				// G0: Linear move without extrusion(but we don't have that at first)
 				//     so I think it's a seperator between each curve;
@@ -93,14 +100,14 @@
 	}
 	/**************** G-code Translator end ****************/
 	/**************** M-code Translator start ****************/
-	void M_Code_Translator(int num, vector<String> v){
+	void M_Code_Translator(int gcode_index, vector<vector<char>> v){
 		#ifdef DEBUG
 			Serial.println("M_code_translator...");
 			Serial.print("code index:");
-			Serial.println(num);
+			Serial.println(gcode_index);
 		#endif
 
-		switch(num){
+		switch(gcode_index){
 			case 84: // enable
 				Enable_Stepper_X();
 				Enable_Stepper_Y();
@@ -117,10 +124,23 @@
 				for(int i = 0; i < v.size(); ++i){
 					char target = v[i][0];
 					if(target == 'P'){
-						P = v[i].substring(1,v[i].length()).toInt();
+						// P = v[i].substring(1,v[i].length()).toInt();
+
+						// generate P
+						String P_string = "";
+						for (int j = 1; j < v[i].size(); j++){
+							P_string += v[i][j];
+						}
+						P = P_string.toInt();
 					}
 					else if(target == 'S'){
-						deg = v[i].substring(1,v[i].length()).toInt();
+						// deg = v[i].substring(1,v[i].length()).toInt();
+						// generate deg
+						String deg_string = "";
+						for (int j = 1; j < v[i].size(); j++){
+							deg_string += v[i][j];
+						}
+						deg = deg_string.toInt();
 					}
 				}
 
@@ -142,16 +162,25 @@
 	}
 /**************** M-code Translator end ****************/
 /**************** Seperator start ****************/
-	void Seperator(vector<String> cmd){
+	void Seperator(vector<vector<char>> cmd){
 		#ifdef DEBUG		
 			Serial.println("Seperator...");
 		#endif
 
-		String gcode_head = cmd[0];
+		vector<char> gcode_head = cmd[0]; //gcode_type+gcode_index
 		char gcode_type = gcode_head[0];
-		int gcode_index = gcode_head.substring(1,gcode_head.length()).toInt();
 
-		vector<String> params;
+		// int gcode_index = gcode_head.substring(1,gcode_head.size()).toInt();
+		//generate gcode_index
+		String gcode_index_string = "";
+		for (int i = 1; i < gcode_head.size(); i++){
+			gcode_index_string += gcode_head[i];
+		}
+
+		int gcode_index = gcode_index_string.toInt();
+
+		// generate params to translator
+		vector<vector<char>> params;
 		for (int i=1;i<cmd.size();i++){
 			params.push_back(cmd[i]);
 		}

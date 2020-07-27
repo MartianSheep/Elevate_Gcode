@@ -49,14 +49,18 @@
 		int degree_diff = next_degree - degree;
 		if(degree_diff>0){
 			for (int i = 0; i<degree_diff;i++){
+				
 				Serial.println("Degree Increasing!");
+				
 				Pen_Servo.write(degree+i);
 				delay(50);
 			}
 
 		}else{
 			for (int i = 0; i>degree_diff;i--){
+				
 				Serial.println("Degree Decreasing!");
+				
 				Pen_Servo.write(degree+i);
 				delay(50);
 			}

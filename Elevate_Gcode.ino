@@ -8,7 +8,7 @@
 **************************************************************************/
 
 #include "configuration.h"
-#include "gcode/gcode_headers.h"
+#include "gcode/gcode_translators.h"
 #include "motor/motor_driver.h"
 
 void setup() {
@@ -22,16 +22,44 @@ void setup() {
 	Y_Stepper.setEndstop(Y_Endstop_Pin, Y_Endstop_Invert);
 }
 
-String cmd = "";
-vector<String> params;
+//String cmd = "";
+//vector<String> params;
 
-void loop() {
-	if(Serial.available()){
-		cmd = Serial.readStringUntil('\n'); // read in command
-		if (cmd!=""){
-			params = Gcode_Parser(cmd); // parse and return params
-			Seperator(params); // seperate to G/M translator => motor driving 
-      Serial.write("complete\n");
-		}
-	}
-}
+//void loop() {
+//	if(Serial.available()){
+//		cmd = Serial.readStringUntil('\n'); // read in command
+//		if (cmd!=""){
+//			params = Gcode_Parser(cmd); // parse and return params
+//			Seperator(params); // seperate to G/M translator => motor driving 
+//      Serial.write("complete\n");
+//		}
+//	}
+//}
+
+int sofar = 0;
+const int MAX_BUF = 100; //need define;
+char buf[MAX_BUF];
+vector<vector<char>> params;
+
+void loop(){
+  
+  if( Serial.available()){
+  
+    char c = Serial.read();
+//    Serial.println(c);
+    if ( sofar < MAX_BUF ) {
+      buf[sofar++]=c;
+      if (c == '\n'){
+//        Serial.println('S');
+        buf[sofar]=0;
+        params = Gcode_Parser(buf,sofar);
+        Seperator(params);
+        Serial.write("complete\n");
+        sofar = 0;
+      }
+     }
+    
+    }
+      
+  
+  }
