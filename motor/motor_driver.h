@@ -46,7 +46,10 @@
 		// #endif
 		// Pen_Servo.write(degree);
 		// delay(Pen_Delay_Time);
+
 		int degree_diff = next_degree - degree;
+		if(degree_diff > 0) X_Stepper.enable();
+
 		if(degree_diff>0){
 			for (int i = 0; i<degree_diff;i++){
 				
@@ -66,7 +69,9 @@
 			}
 		}
 		degree = next_degree;
-		
+
+		if(degree_diff<0) X_Stepper.disable();
+
 	}
 
 	void Move_Pen(bool down){
@@ -88,8 +93,12 @@
 
 /**************** Stepper Moving start ****************/
 	void Move_to(float X, float Y){
+		X_Stepper.disable();
 		int X_steps = X/X_Milis_Per_Step - X_Stepper.get_pos();
 		int Y_steps = Y/Y_Milis_Per_Step - Y_Stepper.get_pos();
+
+		X_Stepper.new_pos(X_steps);
+		Y_Stepper.new_pos(Y_steps);
 
 		if(X_steps > 0){
 			if(X_Stepper.inverted_status())
@@ -123,7 +132,7 @@
 		while(X_steps > 0){
 			digitalWrite(X_Stepper.get_step_pin(), LOW);
 
-			delayMicroseconds(300);
+			delayMicroseconds(500);
 
 			digitalWrite(X_Stepper.get_step_pin(), HIGH);
 
@@ -141,6 +150,8 @@
 
 			--Y_steps;
 		}
+
+		X_Stepper.disable();
 	}
 
 	void Move_Stepper_Linear(float X, float Y){
@@ -158,10 +169,10 @@
 		int X_steps = X/X_Milis_Per_Step - X_Stepper.get_pos();
 		int Y_steps = Y/Y_Milis_Per_Step - Y_Stepper.get_pos();
 
-		// Serial.print("X_Steps: ");
-		// Serial.print(X_steps);
-		// Serial.print("\t Y_steps: ");
-		// Serial.println(Y_steps);
+		Serial.print("X_Steps: ");
+		Serial.print(X_steps);
+		Serial.print("\t Y_steps: ");
+		Serial.println(Y_steps);
 
 		bool X_direction = (X_steps >= 0); //positive is true, negative is false
 		bool Y_direction = (Y_steps >= 0);
@@ -243,7 +254,7 @@
 				case 'X':
 					digitalWrite(X_Stepper.get_step_pin(), LOW);
 
-					delayMicroseconds(50);
+					delayMicroseconds(motor_delay_time);
 
 					digitalWrite(X_Stepper.get_step_pin(), HIGH);
 
@@ -262,7 +273,7 @@
 				case 'Y':
 					digitalWrite(Y_Stepper.get_step_pin(), LOW);
 
-					delayMicroseconds(50);
+					delayMicroseconds(motor_delay_time);
 
 					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
 
@@ -282,7 +293,7 @@
 				case 'E':
 					digitalWrite(X_Stepper.get_step_pin(), LOW);
 					digitalWrite(Y_Stepper.get_step_pin(), LOW);
-					delayMicroseconds(50);
+					delayMicroseconds(motor_delay_time);
 					digitalWrite(X_Stepper.get_step_pin(), HIGH);
 					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
 
@@ -333,8 +344,17 @@
 /**************** Stepper Enable end ****************/
 
 /**************** Homing start ****************/
-	void X_homing() { X_Stepper.homing(); }
-	void Y_homing() { Y_Stepper.homing(); }
+	void X_homing() { 
+		X_Stepper.disable();
+		X_Stepper.homing(); 
+		X_Stepper.enable();
+	}
+	void Y_homing() { 
+		X_Stepper.disable();
+		Y_Stepper.homing();
+		X_Stepper.enable();
+
+	}
 /**************** Homing end ****************/
 
 /**************** Coordinate start ****************/

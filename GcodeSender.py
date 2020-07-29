@@ -2,10 +2,10 @@ import sys
 import time
 import serial
 
-PORT, Baud = 'COM3', 9600
+PORT, Baud = 'COM7', 9600
 
 
-default_input_file = "test.txt"
+default_input_file = "Doraemon.txt"
 
 if sys.argv.__len__() > 1:
     gcodefile = open(sys.argv[1])

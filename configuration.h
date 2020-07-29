@@ -48,6 +48,9 @@
 
 	#define X_Stepper_Invert		true
 	#define Y_Stepper_Invert		true
+
+	//step to step delay Time
+	#define motor_delay_time 50 
 /**************** Stepper Motor end ****************/
 
 /**************** Stepper Motor Advanced start ****************/
