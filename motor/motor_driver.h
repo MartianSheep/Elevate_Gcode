@@ -72,6 +72,7 @@
 
 		// if(degree_diff<0) X_Stepper.disable();
 
+		degree = next_degree;
 	}
 
 	void Move_Pen(bool down){
@@ -139,8 +140,6 @@
 			--X_steps;
 		}
 
-		
-
 		while(Y_steps > 0){
 			digitalWrite(Y_Stepper.get_step_pin(), LOW);
 
@@ -155,9 +154,9 @@
 	}
 
 	void Move_Stepper_Linear(float X, float Y){
-		// #ifdef DEBUG
-		// 	Serial.println("Linear moving...");
-		// #endif
+		#ifdef DEBUG
+			Serial.println("Linear moving...");
+		#endif
 		
 		// Serial.println("Linear moving");
 
@@ -169,10 +168,12 @@
 		int X_steps = X/X_Milis_Per_Step - X_Stepper.get_pos();
 		int Y_steps = Y/Y_Milis_Per_Step - Y_Stepper.get_pos();
 
-		Serial.print("X_Steps: ");
-		Serial.print(X_steps);
-		Serial.print("\t Y_steps: ");
-		Serial.println(Y_steps);
+		#ifdef DEBUG
+			Serial.print("X_Steps: ");
+			Serial.print(X_steps);
+			Serial.print("\t Y_steps: ");
+			Serial.println(Y_steps);
+		#endif
 
 		bool X_direction = (X_steps >= 0); //positive is true, negative is false
 		bool Y_direction = (Y_steps >= 0);
@@ -218,11 +219,8 @@
 		unsigned long last_rising = millis();
 
 		while(current_steps < total_steps){
-			if((int)(millis() - last_rising) < min(tx, ty)) {
-
+			if((int)(millis() - last_rising) < min(tx, ty))
 				continue;
-
-			}
 			else{
 				if(X_steps > 0){
 					if(X_Stepper.inverted_status())
@@ -253,12 +251,8 @@
 				switch (flag){
 				case 'X':
 					digitalWrite(X_Stepper.get_step_pin(), LOW);
-
 					delayMicroseconds(motor_delay_time);
-
 					digitalWrite(X_Stepper.get_step_pin(), HIGH);
-
-					//Serial.println("X");
 
 					last_rising = millis();
 
@@ -272,15 +266,10 @@
 				
 				case 'Y':
 					digitalWrite(Y_Stepper.get_step_pin(), LOW);
-
 					delayMicroseconds(motor_delay_time);
-
 					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
 
-					//Serial.println("Y");
-
 					last_rising = millis();
-
 
 					++current_steps;
 
@@ -296,8 +285,6 @@
 					delayMicroseconds(motor_delay_time);
 					digitalWrite(X_Stepper.get_step_pin(), HIGH);
 					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
-
-					//Serial.println("E");
 
 					last_rising = millis();
 

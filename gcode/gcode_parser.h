@@ -14,11 +14,9 @@
 /**************** Parser Char* start ****************/
 	vector<vector<char>> Gcode_Parser(char *cmd, int len){
 		
-		// const int MAX_VALUE_LEN = 10;
-
 		#ifdef DEBUG
 			Serial.print("Parser parsing: \"");
-			// Serial.print(cmd);
+			Serial.print(cmd);
 			Serial.println("\"...");
 		#endif
 
@@ -38,24 +36,16 @@
 			// #endif
 			if (currentChar == ' '){
 				if(!isF){
-
 					parsed_data.push_back(value); //insert param into vector 
 					value.clear(); // clear value to accept next value
-
-
 				}else{
-
 					value.clear(); // clear value to accept next value
 					isF = false; // set to not F state
-
-
 				}
 			}
 			else {
 				if (currentChar == 'F') isF = true;
-
 				value.push_back(currentChar);
-
 			}
 		}
 

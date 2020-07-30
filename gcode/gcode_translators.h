@@ -15,10 +15,10 @@
 
 /**************** G-code Translator start ****************/
 	void G_Code_Translator(int gcode_index, vector<vector<char>> v){
-		#ifdef DEBUG
-			Serial.print("G_code_translator, code index: ");
-			Serial.println(gcode_index);
-		#endif
+		// #ifdef DEBUG
+		// 	Serial.print("G_code_translator, code index: ");
+		// 	Serial.println(gcode_index);
+		// #endif
 
 		float X = X_coordinate();
 		float Y = Y_coordinate();
@@ -98,14 +98,15 @@
 		}
 		return;
 	}
-	/**************** G-code Translator end ****************/
-	/**************** M-code Translator start ****************/
+/**************** G-code Translator end ****************/
+
+/**************** M-code Translator start ****************/
 	void M_Code_Translator(int gcode_index, vector<vector<char>> v){
-		#ifdef DEBUG
-			Serial.println("M_code_translator...");
-			Serial.print("code index:");
-			Serial.println(gcode_index);
-		#endif
+		// #ifdef DEBUG
+		// 	Serial.println("M_code_translator...");
+		// 	Serial.print("code index:");
+		// 	Serial.println(gcode_index);
+		// #endif
 
 		switch(gcode_index){
 			case 84: // enable
@@ -171,7 +172,7 @@
 		char gcode_type = gcode_head[0];
 
 		// int gcode_index = gcode_head.substring(1,gcode_head.size()).toInt();
-		//generate gcode_index
+		// generate gcode_index
 		String gcode_index_string = "";
 		for (int i = 1; i < gcode_head.size(); i++){
 			gcode_index_string += gcode_head[i];

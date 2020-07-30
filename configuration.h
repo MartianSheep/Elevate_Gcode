@@ -10,11 +10,19 @@
 #pragma once
 
 // Uncomment the below to enable DEBUG mode.
-#define DEBUG
+// #define DEBUG
 
 /**************** Baudrate start ****************/
 	#define Baudrate 				9600
 /**************** Baudrate end ****************/
+
+/**************** Buffer Size start ****************/
+	#define MAX_BUF					100
+/**************** Buffer Size end ****************/
+
+/**************** Action Time start ****************/
+	#define ACTION_TIME				100
+/**************** Action Time end ****************/
 
 /**************** Stepper Controller A4988 start ****************/
 	#define X_Stepper_MS1			true
@@ -27,20 +35,20 @@
 /**************** Stepper Controller A4988 end ****************/
 
 /**************** Stepper Motor start ****************/
-	#define X_Stepper_Step_Pin		3
+	#define X_Stepper_Step_Pin		2
 	#define X_Stepper_Dir_Pin		4
-	#define X_Stepper_Enable_Pin	8
+	#define X_Stepper_Enable_Pin	10
 
-	#define Y_Stepper_Step_Pin		5
-	#define Y_Stepper_Dir_Pin		6
-	#define Y_Stepper_Enable_Pin	9
+	#define Y_Stepper_Step_Pin		3
+	#define Y_Stepper_Dir_Pin		5
+	#define Y_Stepper_Enable_Pin	10
 
 	// please insert the original offset
 	#define X_Steps_Per_Rev_Origin	20
 	// please insert the original offset
 	#define Y_Steps_Per_Rev_Origin	20
-	#define X_Mili_Per_Revolution	1.6
-	#define Y_Mili_Per_Revolution	1.6
+	#define X_Mili_Per_Revolution	4.0
+	#define Y_Mili_Per_Revolution	4.0
 
 	// consider feedrate unit
 	#define X_Milis_Per_Second		20.0
@@ -96,22 +104,22 @@
 /**************** Stepper Motor Advanced end ****************/
 
 /**************** Endstops start ****************/
-	#define X_Endstop_Pin			10
+	#define X_Endstop_Pin			11
 	#define X_Endstop_Invert		false
 	// endstop_invert: if false,
 	// this means that endstop returns false while NOT touched
 
-	#define Y_Endstop_Pin			11
+	#define Y_Endstop_Pin			12
 	#define Y_Endstop_Invert		false
 	// endstop_invert: if false,
 	// this means that endstop returns false while NOT touched
 /**************** Endstops end ****************/
 
 /**************** Servo Motor start ****************/
-	#define Servo_Pin				7
+	#define Servo_Pin				9
 
-	#define Servo_Pen_Up_Angle		90
-	#define Servo_Pen_Down_Angle	60
+	#define Servo_Pen_Up_Angle		60
+	#define Servo_Pen_Down_Angle	15
 
 	#define Pen_Delay_Time			100
 /**************** Servo Motor end ****************/
