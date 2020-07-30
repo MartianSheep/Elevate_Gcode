@@ -9,7 +9,7 @@
 
 #pragma once
 
-#define Cpp_Mode
+// #define Cpp_Mode
 
 #ifdef Cpp_Mode
 	#include <iostream>
