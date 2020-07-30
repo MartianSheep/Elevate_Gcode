@@ -2,10 +2,10 @@ import sys
 import time
 import serial
 
-PORT, Baud = 'COM7', 9600
+PORT, Baud = 'COM3', 9600
 
 
-default_input_file = "Doraemon.txt"
+default_input_file = "EE.txt"
 
 if sys.argv.__len__() > 1:
     gcodefile = open(sys.argv[1])
@@ -37,24 +37,13 @@ def inputLine(file):
 
 s = serial.Serial(PORT, Baud, timeout = 4)
 
-# while True
-#     cmd_lst = []
-#     for cmd in range(10):
-#         line = inputLine(gcodefile)
-#         if line:
-#             cmd_lst.append(cmd_lst)
-
-#     s.write(cmd_lst)
 line = inputLine(gcodefile)
-# s.write("start".encode())
+
+s.write("start".encode()) #not important
+time.sleep(2)
 while line:
     print("Command:", line.strip())
     s.write((line+"\n").encode())
-    # s.read()
-    # while True:
-    #     print(s.readline())
-    #     if s.readline()=="complete":
-    #         break
     thisline = s.readline()
     if(thisline):
         while True:

@@ -56,6 +56,7 @@ void loop(){
         Seperator(params);
         Serial.write("complete\n");
         sofar = 0;
+//        delay(500);
       }
      }
     

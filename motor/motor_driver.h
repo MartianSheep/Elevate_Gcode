@@ -38,39 +38,39 @@
 		delay(Pen_Delay_Time);
 	}
 
-	void Pen_Degree(int next_degree){
-		// #ifdef DEBUG
-		// 	Serial.print("Servo: moving to ");
-		// 	Serial.print(degree);
-		// 	Serial.println(" degree.");
-		// #endif
-		// Pen_Servo.write(degree);
-		// delay(Pen_Delay_Time);
+	void Pen_Degree(int degree){
+		#ifdef DEBUG
+			Serial.print("Servo: moving to ");
+			Serial.print(degree);
+			Serial.println(" degree.");
+		#endif
+		Pen_Servo.write(degree);
+		delay(Pen_Delay_Time);
 
-		int degree_diff = next_degree - degree;
-		if(degree_diff > 0) X_Stepper.enable();
+		// int degree_diff = next_degree - degree;
+		// if(degree_diff > 0) X_Stepper.enable();
 
-		if(degree_diff>0){
-			for (int i = 0; i<degree_diff;i++){
+		// if(degree_diff>0){
+		// 	for (int i = 0; i<degree_diff;i++){
 				
-				Serial.println("Degree Increasing!");
+		// 		Serial.println("Degree Increasing!");
 				
-				Pen_Servo.write(degree+i);
-				delay(50);
-			}
+		// 		Pen_Servo.write(degree+i);
+		// 		delay(50);
+		// 	}
 
-		}else{
-			for (int i = 0; i>degree_diff;i--){
+		// }else{
+		// 	for (int i = 0; i>degree_diff;i--){
 				
-				Serial.println("Degree Decreasing!");
+		// 		Serial.println("Degree Decreasing!");
 				
-				Pen_Servo.write(degree+i);
-				delay(50);
-			}
-		}
-		degree = next_degree;
+		// 		Pen_Servo.write(degree+i);
+		// 		delay(50);
+		// 	}
+		// }
+		// degree = next_degree;
 
-		if(degree_diff<0) X_Stepper.disable();
+		// if(degree_diff<0) X_Stepper.disable();
 
 	}
 
