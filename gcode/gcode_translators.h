@@ -15,10 +15,10 @@
 
 /**************** G-code Translator start ****************/
 	void G_Code_Translator(int gcode_index, vector<vector<char>> v){
-		#ifdef DEBUG
-			Serial.print("G_code_translator, code index: ");
-			Serial.println(gcode_index);
-		#endif
+		// #ifdef DEBUG
+		// 	Serial.print("G_code_translator, code index: ");
+		// 	Serial.println(gcode_index);
+		// #endif
 
 		float X = X_coordinate();
 		float Y = Y_coordinate();
@@ -51,13 +51,13 @@
 			}
 		}
 
-		#ifdef DEBUG
-			Serial.print("X: ");
-			Serial.print(X);
-			Serial.print(" Y: ");
-			Serial.print(Y);
-			Serial.println();
-		#endif
+		// #ifdef DEBUG
+		// 	Serial.print("X: ");
+		// 	Serial.print(X);
+		// 	Serial.print(" Y: ");
+		// 	Serial.print(Y);
+		// 	Serial.println();
+		// #endif
 
 		switch(gcode_index){
 			case 0:
@@ -73,8 +73,9 @@
 				// G21: set units to milimeters;
 				break;
 			case 28:
-				X_homing();
+				// X_homing();
 				Y_homing();
+				X_homing();
 				break;
 			case 90:
 				// G90: set coordinate to absolute;
@@ -101,11 +102,11 @@
 	/**************** G-code Translator end ****************/
 	/**************** M-code Translator start ****************/
 	void M_Code_Translator(int gcode_index, vector<vector<char>> v){
-		#ifdef DEBUG
-			Serial.println("M_code_translator...");
-			Serial.print("code index:");
-			Serial.println(gcode_index);
-		#endif
+		// #ifdef DEBUG
+		// 	Serial.println("M_code_translator...");
+		// 	Serial.print("code index:");
+		// 	Serial.println(gcode_index);
+		// #endif
 
 		switch(gcode_index){
 			case 84: // enable
@@ -163,9 +164,9 @@
 /**************** M-code Translator end ****************/
 /**************** Seperator start ****************/
 	void Seperator(vector<vector<char>> cmd){
-		#ifdef DEBUG		
-			Serial.println("Seperator...");
-		#endif
+		// #ifdef DEBUG		
+		// 	Serial.println("Seperator...");
+		// #endif
 
 		vector<char> gcode_head = cmd[0]; //gcode_type+gcode_index
 		char gcode_type = gcode_head[0];
@@ -198,9 +199,9 @@
 				Serial.println("\".");
 		}
 
-		#ifdef DEBUG
-			Serial.println("/*****Seperator ends*****/");
-		#endif
+		// #ifdef DEBUG
+		// 	Serial.println("/*****Seperator ends*****/");
+		// #endif
 	}
 /**************** Seperator end ****************/
 

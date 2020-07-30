@@ -51,22 +51,25 @@
 		if(degree_diff > 0) X_Stepper.enable();
 
 		if(degree_diff>0){
-			for (int i = 0; i<degree_diff;i++){
+			// for (int i = 0; i<degree_diff;i++){
 				
-				Serial.println("Degree Increasing!");
+			// 	Serial.println("Degree Increasing!");
 				
-				Pen_Servo.write(degree+i);
-				delay(50);
-			}
-
+			// 	Pen_Servo.write(degree+i);
+			// 	delay(50);
+			// }
+			Pen_Servo.write(next_degree);
+			delay(Pen_Delay_Time);
 		}else{
-			for (int i = 0; i>degree_diff;i--){
+			// for (int i = 0; i>degree_diff;i--){
 				
-				Serial.println("Degree Decreasing!");
+			// 	Serial.println("Degree Decreasing!");
 				
-				Pen_Servo.write(degree+i);
-				delay(50);
-			}
+			// 	Pen_Servo.write(degree+i);
+			// 	delay(50);
+			// }
+			Pen_Servo.write(next_degree);
+			delay(Pen_Delay_Time);
 		}
 		degree = next_degree;
 
@@ -76,15 +79,15 @@
 
 	void Move_Pen(bool down){
 		if(down){
-			#ifdef DEBUG
-				Serial.println("Servo: Pen down");
-			#endif
+			// #ifdef DEBUG
+			// 	Serial.println("Servo: Pen down");
+			// #endif
 			Pen_Degree(Servo_Pen_Down_Angle);
 		}
 		else{
-			#ifdef DEBUG
-				Serial.println("Servo: Pen up");
-			#endif
+			// #ifdef DEBUG
+			// 	Serial.println("Servo: Pen up");
+			// #endif
 			Pen_Degree(Servo_Pen_Up_Angle);
 		}
 		return;
@@ -169,10 +172,10 @@
 		int X_steps = X/X_Milis_Per_Step - X_Stepper.get_pos();
 		int Y_steps = Y/Y_Milis_Per_Step - Y_Stepper.get_pos();
 
-		Serial.print("X_Steps: ");
-		Serial.print(X_steps);
-		Serial.print("\t Y_steps: ");
-		Serial.println(Y_steps);
+		// Serial.print("X_Steps: ");
+		// Serial.print(X_steps);
+		// Serial.print("\t Y_steps: ");
+		// Serial.println(Y_steps);
 
 		bool X_direction = (X_steps >= 0); //positive is true, negative is false
 		bool Y_direction = (Y_steps >= 0);

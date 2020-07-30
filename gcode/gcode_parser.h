@@ -76,11 +76,11 @@
 		
 		// const int MAX_VALUE_LEN = 10;
 
-		#ifdef DEBUG
-			Serial.print("Parser parsing: \"");
-			// Serial.print(cmd);
-			Serial.println("\"...");
-		#endif
+		// #ifdef DEBUG
+		// 	Serial.print("Parser parsing: \"");
+		// 	// Serial.print(cmd);
+		// 	Serial.println("\"...");
+		// #endif
 
 		vector<vector<char>> parsed_data;
 

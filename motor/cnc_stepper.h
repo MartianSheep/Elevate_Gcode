@@ -88,9 +88,9 @@ public:
 			now_pos = 0;
 			int small_step = -1;
 
-			#ifdef DEBUG
-				Serial.println("CNC_Stepper: homing called...");
-			#endif
+			// #ifdef DEBUG
+			// 	Serial.println("CNC_Stepper: homing called...");
+			// #endif
 
 			digitalWrite(direction_pin, HIGH);
 
@@ -101,9 +101,9 @@ public:
 				digitalWrite(step_pin, HIGH);
 			}
 
-			#ifdef DEBUG
-				Serial.println("CNC_Stepper: homing done !!");
-			#endif
+			// #ifdef DEBUG
+			// 	Serial.println("CNC_Stepper: homing done !!");
+			// #endif
 		}
 
 		bool get_endstop(){
