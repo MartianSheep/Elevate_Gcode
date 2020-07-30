@@ -16,6 +16,14 @@
 	#define Baudrate 				9600
 /**************** Baudrate end ****************/
 
+/**************** Buffer Size start ****************/
+	#define MAX_BUF					100
+/**************** Buffer Size end ****************/
+
+/**************** Action Time start ****************/
+	#define ACTION_TIME				100
+/**************** Action Time end ****************/
+
 /**************** Stepper Controller A4988 start ****************/
 	#define X_Stepper_MS1			true
 	#define X_Stepper_MS2			true

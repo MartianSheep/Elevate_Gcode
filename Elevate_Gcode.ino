@@ -23,7 +23,6 @@ void setup() {
 }
 
 int sofar = 0;
-const int MAX_BUF = 100; //need define;
 char buf[MAX_BUF];
 vector<vector<char>> params;
 
@@ -36,6 +35,9 @@ void loop(){
 				buf[sofar]=0;
 				params = Gcode_Parser(buf,sofar);
 				Seperator(params);
+
+				delay(ACTION_TIME);
+
 				Serial.println();
 				Serial.print("complete\n");
 				sofar = 0;

@@ -51,13 +51,13 @@
 			}
 		}
 
-		// #ifdef DEBUG
-		// 	Serial.print("X: ");
-		// 	Serial.print(X);
-		// 	Serial.print(" Y: ");
-		// 	Serial.print(Y);
-		// 	Serial.println();
-		// #endif
+		#ifdef DEBUG
+			Serial.print("X: ");
+			Serial.print(X);
+			Serial.print(" Y: ");
+			Serial.print(Y);
+			Serial.println();
+		#endif
 
 		switch(gcode_index){
 			case 0:
@@ -73,9 +73,8 @@
 				// G21: set units to milimeters;
 				break;
 			case 28:
-				// X_homing();
-				Y_homing();
 				X_homing();
+				Y_homing();
 				break;
 			case 90:
 				// G90: set coordinate to absolute;
@@ -99,8 +98,9 @@
 		}
 		return;
 	}
-	/**************** G-code Translator end ****************/
-	/**************** M-code Translator start ****************/
+/**************** G-code Translator end ****************/
+
+/**************** M-code Translator start ****************/
 	void M_Code_Translator(int gcode_index, vector<vector<char>> v){
 		// #ifdef DEBUG
 		// 	Serial.println("M_code_translator...");
@@ -164,15 +164,15 @@
 /**************** M-code Translator end ****************/
 /**************** Seperator start ****************/
 	void Seperator(vector<vector<char>> cmd){
-		// #ifdef DEBUG		
-		// 	Serial.println("Seperator...");
-		// #endif
+		#ifdef DEBUG		
+			Serial.println("Seperator...");
+		#endif
 
 		vector<char> gcode_head = cmd[0]; //gcode_type+gcode_index
 		char gcode_type = gcode_head[0];
 
 		// int gcode_index = gcode_head.substring(1,gcode_head.size()).toInt();
-		//generate gcode_index
+		// generate gcode_index
 		String gcode_index_string = "";
 		for (int i = 1; i < gcode_head.size(); i++){
 			gcode_index_string += gcode_head[i];
@@ -199,9 +199,9 @@
 				Serial.println("\".");
 		}
 
-		// #ifdef DEBUG
-		// 	Serial.println("/*****Seperator ends*****/");
-		// #endif
+		#ifdef DEBUG
+			Serial.println("/*****Seperator ends*****/");
+		#endif
 	}
 /**************** Seperator end ****************/
 

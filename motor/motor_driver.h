@@ -39,55 +39,32 @@
 	}
 
 	void Pen_Degree(int next_degree){
-		// #ifdef DEBUG
-		// 	Serial.print("Servo: moving to ");
-		// 	Serial.print(degree);
-		// 	Serial.println(" degree.");
-		// #endif
-		// Pen_Servo.write(degree);
-		// delay(Pen_Delay_Time);
+		#ifdef DEBUG
+			Serial.print("Servo: moving to ");
+			Serial.print(degree);
+			Serial.println(" degree.");
+		#endif
 
-		int degree_diff = next_degree - degree;
-		if(degree_diff > 0) X_Stepper.enable();
+		if(next_degree > degree) X_Stepper.enable();
+		else X_Stepper.disable();
 
-		if(degree_diff>0){
-			// for (int i = 0; i<degree_diff;i++){
-				
-			// 	Serial.println("Degree Increasing!");
-				
-			// 	Pen_Servo.write(degree+i);
-			// 	delay(50);
-			// }
-			Pen_Servo.write(next_degree);
-			delay(Pen_Delay_Time);
-		}else{
-			// for (int i = 0; i>degree_diff;i--){
-				
-			// 	Serial.println("Degree Decreasing!");
-				
-			// 	Pen_Servo.write(degree+i);
-			// 	delay(50);
-			// }
-			Pen_Servo.write(next_degree);
-			delay(Pen_Delay_Time);
-		}
+		Pen_Servo.write(degree);
+		delay(Pen_Delay_Time);
+
 		degree = next_degree;
-
-		if(degree_diff<0) X_Stepper.disable();
-
 	}
 
 	void Move_Pen(bool down){
 		if(down){
-			// #ifdef DEBUG
-			// 	Serial.println("Servo: Pen down");
-			// #endif
+			#ifdef DEBUG
+				Serial.println("Servo: Pen down");
+			#endif
 			Pen_Degree(Servo_Pen_Down_Angle);
 		}
 		else{
-			// #ifdef DEBUG
-			// 	Serial.println("Servo: Pen up");
-			// #endif
+			#ifdef DEBUG
+				Serial.println("Servo: Pen up");
+			#endif
 			Pen_Degree(Servo_Pen_Up_Angle);
 		}
 		return;
@@ -142,8 +119,6 @@
 			--X_steps;
 		}
 
-		
-
 		while(Y_steps > 0){
 			digitalWrite(Y_Stepper.get_step_pin(), LOW);
 
@@ -158,9 +133,9 @@
 	}
 
 	void Move_Stepper_Linear(float X, float Y){
-		// #ifdef DEBUG
-		// 	Serial.println("Linear moving...");
-		// #endif
+		#ifdef DEBUG
+			Serial.println("Linear moving...");
+		#endif
 		
 		// Serial.println("Linear moving");
 
@@ -172,10 +147,12 @@
 		int X_steps = X/X_Milis_Per_Step - X_Stepper.get_pos();
 		int Y_steps = Y/Y_Milis_Per_Step - Y_Stepper.get_pos();
 
-		// Serial.print("X_Steps: ");
-		// Serial.print(X_steps);
-		// Serial.print("\t Y_steps: ");
-		// Serial.println(Y_steps);
+		#ifdef DEBUG
+			Serial.print("X_Steps: ");
+			Serial.print(X_steps);
+			Serial.print("\t Y_steps: ");
+			Serial.println(Y_steps);
+		#endif
 
 		bool X_direction = (X_steps >= 0); //positive is true, negative is false
 		bool Y_direction = (Y_steps >= 0);
@@ -221,11 +198,8 @@
 		unsigned long last_rising = millis();
 
 		while(current_steps < total_steps){
-			if((int)(millis() - last_rising) < min(tx, ty)) {
-
+			if((int)(millis() - last_rising) < min(tx, ty))
 				continue;
-
-			}
 			else{
 				if(X_steps > 0){
 					if(X_Stepper.inverted_status())
@@ -256,12 +230,8 @@
 				switch (flag){
 				case 'X':
 					digitalWrite(X_Stepper.get_step_pin(), LOW);
-
 					delayMicroseconds(motor_delay_time);
-
 					digitalWrite(X_Stepper.get_step_pin(), HIGH);
-
-					//Serial.println("X");
 
 					last_rising = millis();
 
@@ -275,15 +245,10 @@
 				
 				case 'Y':
 					digitalWrite(Y_Stepper.get_step_pin(), LOW);
-
 					delayMicroseconds(motor_delay_time);
-
 					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
 
-					//Serial.println("Y");
-
 					last_rising = millis();
-
 
 					++current_steps;
 
@@ -299,8 +264,6 @@
 					delayMicroseconds(motor_delay_time);
 					digitalWrite(X_Stepper.get_step_pin(), HIGH);
 					digitalWrite(Y_Stepper.get_step_pin(), HIGH);
-
-					//Serial.println("E");
 
 					last_rising = millis();
 
