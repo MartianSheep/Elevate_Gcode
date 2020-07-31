@@ -16,7 +16,7 @@
 	using namespace std;
 #endif
 
-#define MAX_SIZE 20
+#define MAX_SIZE 8
 
 void printing(const char msg[]){
 	#ifdef Cpp_Mode
