@@ -47,32 +47,14 @@
 		Pen_Servo.write(degree);
 		delay(Pen_Delay_Time);
 
-		// int degree_diff = next_degree - degree;
-		// if(degree_diff > 0) X_Stepper.enable();
-
-		// if(degree_diff>0){
-		// 	for (int i = 0; i<degree_diff;i++){
-				
-		// 		Serial.println("Degree Increasing!");
-				
-		// 		Pen_Servo.write(degree+i);
-		// 		delay(50);
-		// 	}
-
-		// }else{
-		// 	for (int i = 0; i>degree_diff;i--){
-				
-		// 		Serial.println("Degree Decreasing!");
-				
-		// 		Pen_Servo.write(degree+i);
-		// 		delay(50);
-		// 	}
-		// }
-		// degree = next_degree;
-
-		// if(degree_diff<0) X_Stepper.disable();
-
-		degree = next_degree;
+		if(degree >= Servo_Pen_Up_Angle){
+			X_Stepper.enable();
+			Y_Stepper.enable();
+		}
+		if(degree <= Servo_Pen_Down_Angle){
+			X_Stepper.disable();
+			Y_Stepper.disable();
+		}
 	}
 
 	void Move_Pen(bool down){
