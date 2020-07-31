@@ -63,7 +63,8 @@
 			case 0:
 				// G0: Linear move without extrusion(but we don't have that at first)
 				//     so I think it's a seperator between each curve;
-				Move_to(X,Y); 
+				Move_to(X,Y);
+				// Move_Stepper_Linear(X,Y);
 				break;
 			case 1:
 				// G1: Linear move with extrusion, which would really draw a line;

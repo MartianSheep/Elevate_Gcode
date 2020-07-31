@@ -27,11 +27,11 @@
 /**************** Stepper Controller A4988 start ****************/
 	#define X_Stepper_MS1			true
 	#define X_Stepper_MS2			true
-	#define X_Stepper_MS3			false
+	#define X_Stepper_MS3			true
 
 	#define Y_Stepper_MS1			true
 	#define Y_Stepper_MS2			true
-	#define Y_Stepper_MS3			false
+	#define Y_Stepper_MS3			true
 /**************** Stepper Controller A4988 end ****************/
 
 /**************** Stepper Motor start ****************/
@@ -57,7 +57,7 @@
 	#define X_Stepper_Invert		true
 	#define Y_Stepper_Invert		true
 
-	//step to step delay Time
+	// step to step delay Time
 	#define motor_delay_time 50 
 /**************** Stepper Motor end ****************/
 
@@ -113,6 +113,8 @@
 	#define Y_Endstop_Invert		false
 	// endstop_invert: if false,
 	// this means that endstop returns false while NOT touched
+
+	#define Homing_Delay			1000
 /**************** Endstops end ****************/
 
 /**************** Servo Motor start ****************/

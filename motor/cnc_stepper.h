@@ -64,7 +64,7 @@ public:
 			while(get_endstop() == endstop_inverted){
 				// step(small_step);
 				digitalWrite(step_pin, LOW);
-				delayMicroseconds(300);
+				delayMicroseconds(Homing_Delay);
 				digitalWrite(step_pin, HIGH);
 			}
 

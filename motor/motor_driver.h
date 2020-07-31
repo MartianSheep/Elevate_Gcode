@@ -75,71 +75,21 @@
 /**************** Servo end ****************/
 
 /**************** Stepper Moving start ****************/
-	void Move_to(float X, float Y){
-		X_Stepper.disable();
-		int X_steps = X/X_Milis_Per_Step - X_Stepper.get_pos();
-		int Y_steps = Y/Y_Milis_Per_Step - Y_Stepper.get_pos();
-
-		X_Stepper.new_pos(X_steps);
-		Y_Stepper.new_pos(Y_steps);
-
-		if(X_steps > 0){
-			if(X_Stepper.inverted_status())
-				digitalWrite(X_Stepper.get_direction_pin(), LOW);
-			else
-				digitalWrite(X_Stepper.get_direction_pin(), HIGH);
-		}
-		else{
-			if(X_Stepper.inverted_status())
-				digitalWrite(X_Stepper.get_direction_pin(), HIGH);
-			else
-				digitalWrite(X_Stepper.get_direction_pin(), LOW);
-		}
-
-		if(Y_steps > 0){
-			if(Y_Stepper.inverted_status())
-				digitalWrite(Y_Stepper.get_direction_pin(), LOW);
-			else
-				digitalWrite(Y_Stepper.get_direction_pin(), HIGH);
-		}
-		else{
-			if(Y_Stepper.inverted_status())
-				digitalWrite(Y_Stepper.get_direction_pin(), HIGH);
-			else
-				digitalWrite(Y_Stepper.get_direction_pin(), LOW);
-		}
-
-		X_steps = abs(X_steps);
-		Y_steps = abs(Y_steps);
-
-		while(X_steps > 0){
-			digitalWrite(X_Stepper.get_step_pin(), LOW);
-
-			delayMicroseconds(500);
-
-			digitalWrite(X_Stepper.get_step_pin(), HIGH);
-
-			--X_steps;
-		}
-
-		while(Y_steps > 0){
-			digitalWrite(Y_Stepper.get_step_pin(), LOW);
-
-			delayMicroseconds(300);
-
-			digitalWrite(Y_Stepper.get_step_pin(), HIGH);
-
-			--Y_steps;
-		}
-
-		X_Stepper.disable();
-	}
-
+	// Move_Stepper_Linear is the slow moving one that is called by G1
 	void Move_Stepper_Linear(float X, float Y){
 		#ifdef DEBUG
 			Serial.println("Linear moving...");
 		#endif
 		
+		// checking enabled
+		if(X_Stepper.get_enable()){
+			Serial.println("Warning: X_Stepper enabled, system auto disable");
+			X_Stepper.disable();
+		}
+		if(Y_Stepper.get_enable()){
+			Serial.println("Warning: Y_Stepper enabled, system auto disable");
+			Y_Stepper.disable();
+		}
 		// Serial.println("Linear moving");
 
 		// Serial.print("X_Stepper.get_pos(): ");
@@ -165,8 +115,8 @@
 		float TX = X_Stepper_Period;
 		float TY = Y_Stepper_Period;
 
-		float X_period=30000;
-		float Y_period=30000;
+		float X_period = 30000; // assigned as inf
+		float Y_period = 30000; // assigned as inf
 
 		long total_time = 0;
 
@@ -294,6 +244,71 @@
 		// Serial.print("\tY_Stepper.get_pos(): ");
 		// Serial.println(Y_Stepper.get_pos());
 		// Serial.println("End Moving");
+	}
+
+	// Move_to is the fast moving one that is called by G0
+	// TEMPORARY UNSTABLE AND ABANDONED
+	void Move_to(float X, float Y){
+		X_Stepper.disable();
+		Y_Stepper.disable();
+
+		// int X_steps = X/X_Milis_Per_Step - X_Stepper.get_pos();
+		// int Y_steps = Y/Y_Milis_Per_Step - Y_Stepper.get_pos();
+
+		// X_Stepper.new_pos(X_steps);
+		// Y_Stepper.new_pos(Y_steps);
+
+		// if(X_steps > 0){
+		// 	if(X_Stepper.inverted_status())
+		// 		digitalWrite(X_Stepper.get_direction_pin(), LOW);
+		// 	else
+		// 		digitalWrite(X_Stepper.get_direction_pin(), HIGH);
+		// }
+		// else{
+		// 	if(X_Stepper.inverted_status())
+		// 		digitalWrite(X_Stepper.get_direction_pin(), HIGH);
+		// 	else
+		// 		digitalWrite(X_Stepper.get_direction_pin(), LOW);
+		// }
+
+		// if(Y_steps > 0){
+		// 	if(Y_Stepper.inverted_status())
+		// 		digitalWrite(Y_Stepper.get_direction_pin(), LOW);
+		// 	else
+		// 		digitalWrite(Y_Stepper.get_direction_pin(), HIGH);
+		// }
+		// else{
+		// 	if(Y_Stepper.inverted_status())
+		// 		digitalWrite(Y_Stepper.get_direction_pin(), HIGH);
+		// 	else
+		// 		digitalWrite(Y_Stepper.get_direction_pin(), LOW);
+		// }
+
+		// X_steps = abs(X_steps);
+		// Y_steps = abs(Y_steps);
+
+		// while(X_steps > 0){
+		// 	digitalWrite(X_Stepper.get_step_pin(), LOW);
+		// 	delay(X_Stepper_Period/2);
+		// 	digitalWrite(X_Stepper.get_step_pin(), HIGH);
+		// 	delay(X_Stepper_Period/2);
+
+		// 	--X_steps;
+		// }
+
+		// while(Y_steps > 0){
+		// 	digitalWrite(Y_Stepper.get_step_pin(), LOW);
+		// 	delay(Y_Stepper_Period/2);
+		// 	digitalWrite(Y_Stepper.get_step_pin(), HIGH);
+		// 	delay(Y_Stepper_Period/2);
+
+		// 	--Y_steps;
+		// }
+
+		Move_Stepper_Linear(X,Y);
+
+		X_Stepper.disable();
+		Y_Stepper.disable();
 	}
 /**************** Stepper Moving end ****************/
 
