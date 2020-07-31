@@ -51,8 +51,8 @@
 	#define Y_Mili_Per_Revolution	4.0
 
 	// consider feedrate unit
-	#define X_Milis_Per_Second		20.0
-	#define Y_Milis_Per_Second		20.0
+	#define X_Milis_Per_Second		15.0
+	#define Y_Milis_Per_Second		15.0
 
 	#define X_Stepper_Invert		true
 	#define Y_Stepper_Invert		true
@@ -114,7 +114,7 @@
 	// endstop_invert: if false,
 	// this means that endstop returns false while NOT touched
 
-	#define Homing_Delay			1000
+	#define Homing_Delay			2000
 /**************** Endstops end ****************/
 
 /**************** Servo Motor start ****************/

@@ -307,8 +307,8 @@
 
 		Move_Stepper_Linear(X,Y);
 
-		X_Stepper.disable();
-		Y_Stepper.disable();
+		X_Stepper.enable();
+		Y_Stepper.enable();
 	}
 /**************** Stepper Moving end ****************/
 
