@@ -95,3 +95,4 @@ except KeyboardInterrupt:
     exit()
 
 gcodefile.close()
+ser.close()
