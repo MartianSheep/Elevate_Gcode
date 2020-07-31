@@ -10,6 +10,8 @@
 # Elevate_Gcode
 Gcode Firmware for the NTUEE Elevate CNC Mini Drawing Machine Project
 
+## 這裡應該改一改啦乾
+
 ## 分工
 
 ### main.ino
