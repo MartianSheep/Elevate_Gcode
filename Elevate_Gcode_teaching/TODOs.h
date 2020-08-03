@@ -34,6 +34,9 @@ void Pen_Degree(int degree){
 	// TODO
 
 	/***** Answer start *****/
+		if(degree > Servo_Pen_Limit_Angle)
+			degree = Servo_Pen_Limit_Angle;
+
 		Pen_Servo.write(degree);
 		delay(Pen_Delay_Time);
 

@@ -62,7 +62,8 @@
 
 /**************** Servo Motor start ****************/
 	#define Servo_Pin				9
-	#define Servo_Pen_Up_Angle		60
+	#define Servo_Pen_Up_Angle		15
+	#define Servo_Pen_Limit_Angle	30
 
 	#define Pen_Delay_Time			100
 /**************** Servo Motor end ****************/
