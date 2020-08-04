@@ -19,7 +19,7 @@ print()
 connected = False
 while not connected:
     try:
-        port = input("Please insert arduino nano port name: ").upper()
+        port = input("Please insert arduino nano port name: ")
 
         if port.upper() == "QUIT":
             print("Quit System")
