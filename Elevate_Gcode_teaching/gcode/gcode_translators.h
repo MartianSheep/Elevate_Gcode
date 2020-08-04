@@ -32,9 +32,33 @@
 			switch(param_type){
 				case 'X':
 					X = param_num_string.toFloat();
+
+					if(X < 0){
+						Serial.println("Warning: X axis out of bed range.");
+						Serial.println("System auto adjust to the end of bed.");
+						X = 0;
+					}
+					else if(X > Bed_Size){
+						Serial.println("Warning: X axis out of bed range.");
+						Serial.println("System auto adjust to the end of bed.");
+						X = Bed_Size;						
+					}
+
 					break;
 				case 'Y':
 					Y = param_num_string.toFloat();
+
+					if(Y < 0){
+						Serial.println("Warning: Y axis out of bed range.");
+						Serial.println("System auto adjust to the end of bed.");
+						Y = 0;
+					}
+					else if(Y > Bed_Size){
+						Serial.println("Warning: Y axis out of bed range.");
+						Serial.println("System auto adjust to the end of bed.");
+						Y = Bed_Size;						
+					}
+					
 					break;
 				default:
 					Serial.println("Gcode Translator: ");
