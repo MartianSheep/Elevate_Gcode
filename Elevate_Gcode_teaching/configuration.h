@@ -67,3 +67,7 @@
 
 	#define Pen_Delay_Time			100
 /**************** Servo Motor end ****************/
+
+/**************** Bed Size start ****************/
+	#define Bed_Size				36
+/**************** Bed Size end ****************/
